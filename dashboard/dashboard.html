@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Boxicons CDN Link -->
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Viga&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="dashboard.css">
+  <title>Dashboard</title>
+  <!-- <link rel="icon" type="image/x-icon" href="../aset/favicon.ico"> -->
+</head>
+<body>
+  <div class="sidebar">
+    <div class="logo-details">
+      <!-- <i class="fa-solid fa-user-doctor"></i> -->
+      <!-- <img src="../aset/shield-solid.png" alt="" class="mr-3 ml-2"> -->
+      <i class='bx bxs-bowl-hot'></i>
+      <span class="logo_name">Dashboard</span>
+    </div>
+    <ul class="nav-links">
+      <li>
+        <a href="dashboard.html" class="active">
+          <i class='bx bx-grid-alt' ></i>
+          <span class="links_name">Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a href="user.html">
+          <i class='bx bxs-user'></i>
+          <span class="links_name">Tabel User</span>
+        </a>
+      </li>
+      <li>
+        <a href="reservasi.html">
+          <i class='bx bxs-calendar' ></i>
+          <span class="links_name">Tabel Reservasi</span>
+        </a>
+      </li>
+      <li class="log_out">
+        <a href="../signin.html">
+          <i class='bx bx-log-out'></i>
+          <span class="links_name">Log out</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <section class="home-section">
+    <nav>
+      <div class="sidebar-button">
+        <i class='bx bx-menu sidebarBtn'></i>
+        <span class="dashboard">Dashboard</span>
+      </div>
+      <!-- <div class="search-box">
+        <input type="text" placeholder="Search...">
+        <i class='bx bx-search' ></i>
+      </div> -->
+      <div class="profile-details">
+        <img src="../aset/potrait.jpg" alt="">
+        <!-- <i class="fa-solid fa-user-tie"></i> -->
+        <span class="admin_name">Admoon</span>
+      </div>
+    </nav>
+
+    <div class="home-content">
+      <div class="overview-boxes">
+        <div class="box">
+          <div class="right-side">
+            <div class="box-topic">Total User</div>
+            <div class="number">99</div>
+          </div>
+          <i class='bx bxs-user cart'></i>
+        </div>
+        <div class="box">
+          <div class="right-side">
+            <div class="box-topic">Total Reservasi</div>
+            <div class="number">99</div>
+          </div>
+          <i class='bx bxs-calendar cart' ></i>
+        </div>
+        <div class="box">
+          <div class="right-side">
+            <div class="box-topic">Reservasi Pending</div>
+            <div class="number">9</div>
+          </div>
+          <i class='bx bxs-calendar-exclamation cart three'></i>
+        </div>
+        <div class="box">
+          <div class="right-side">
+            <div class="box-topic">Reservasi Selesai</div>
+            <div class="number">90</div>
+          </div>
+          <i class='bx bxs-calendar-check cart two'></i>
+        </div>
+      </div>
+
+      <div class="sales-boxes">
+        <div class="recent-sales box">
+          <div class="title">List Reservasi</div>
+          <div class="sales-details">
+            <ul class="details">
+              <li class="topic">ID</li>
+              <li><a href="#">1</a></li>
+              <li><a href="#">2</a></li>
+              <li><a href="#">3</a></li>
+
+            </ul>
+            <ul class="details">
+              <li class="topic">Nama</li>
+              <li><a href="#">Alex Doe</a></li>
+              <li><a href="#">David Mart</a></li>
+              <li><a href="#">Roe Parter</a></li>
+
+            </ul>
+            <ul class="details">
+              <li class="topic">No Telp</li>
+              <li><a href="#">081312424</a></li>
+              <li><a href="#">089351354</a></li>
+              <li><a href="#">087124125</a></li>   
+            </ul>
+            <!-- <ul class="details">
+              <li class="topic">Jumlah Tamu</li>
+              <li><a href="#">4</a></li>
+              <li><a href="#">2</a></li>
+              <li><a href="#">5</a></li>
+            </ul> -->
+            <ul class="details">
+              <li class="topic">Tanggal</li>
+              <li><a href="#">2022-12-13</a></li>
+              <li><a href="#">2023-1-12</a></li>
+              <li><a href="#">2022-12-11</a></li>
+            </ul>
+            <ul class="details">
+              <li class="topic">Jenis Reservasi</li>
+              <li><a href="#">Dine In</a></li>
+              <li><a href="#">Dine In</a></li>
+              <li><a href="#">Dine In</a></li>
+            </ul>
+          </div>
+          <div class="button">
+            <a href="reservasi.html">See All</a>
+          </div>
+        </div>
+        <div class="top-sales box">
+          <div class="title">List User</div>
+          <ul class="top-sales-details">
+            <!-- <ul class="top-sales-details">
+              <li class="topic">Username</li>
+              <li><span>Admoon</span></li>
+              <li><a href="#">Fatur</a></li>
+              <li><a href="#">Bagus</a></li>
+            </ul> -->
+            <li>
+             <span class="product" style="font-weight:500; font-size: 20px;">Username </span>
+             <!-- <span class="price"  style="font-weight:500; font-size: 20px;">Email</span> -->
+             <span class="price" style="font-weight:500; font-size: 20px;">No Telp</span>
+           </li><li>
+             <span class="product">Admoon</span>
+             <!-- <span class="price">admon@gmail.com</span> -->
+             <span class="price">010111011</span>
+           </li>
+           <li>
+             <span class="product">Fatur</span>
+             <!-- <span class="price">fatur@gmail.com</span> -->
+             <span class="price">0891561756</span>
+           </li>
+           <li>
+            <span class="product">Bagus</span>
+            <!-- <span class="price">bagus@gmail.com</span> -->
+            <span class="price">0813615489</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+ let sidebar = document.querySelector(".sidebar");
+ let sidebarBtn = document.querySelector(".sidebarBtn");
+ sidebarBtn.onclick = function() {
+  sidebar.classList.toggle("active");
+  if(sidebar.classList.contains("active")){
+    sidebarBtn.classList.replace("bx-menu" ,"bx-menu-alt-right");
+  }else
+  sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+}
+</script>
+
+</body>
+</html>
+
