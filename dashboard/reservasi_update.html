@@ -17,7 +17,7 @@
 <body>
   <div class="sidebar">
     <div class="logo-details">
-      <!-- <img src="../aset/shield-solid.png" alt="" class="mr-3 ml-2"> -->
+      <!-- <img src="../aset/icon.png" alt="" class="mr-3 ml-2"> -->
       <i class='bx bxs-bowl-hot'></i>
       <span class="logo_name">Dashboard</span>
     </div>
@@ -41,7 +41,7 @@
         </a>
       </li>
       <li class="log_out">
-        <a href="../user/index.html">
+        <a href="../index.html">
           <i class='bx bx-log-out'></i>
           <span class="links_name">Kembali</span>
         </a>
@@ -79,20 +79,32 @@
             <label for="">Jumlah Tamu</label>
             <input type="number" name="" class="form-control" value="" placeholder="Masukan Jumlah Tamu" required/>	
           </div>
-          <div class="form-group">
-            <label for="">Tanggal</label>
-            <input type="date" name="" class="form-control" value="" placeholder="Masukan Tanggal" required/>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="">Tanggal</label>
+              <input type="date" name="" class="form-control" value="" placeholder="Masukan Tanggal" required/>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="">Jam Datang</label>
+              <input type="time" name="" class="form-control" value="" placeholder="Masukan Jam Datang" required/>
+            </div>
           </div>
           <div class="form-group">            
             <label for="">Jenis Reservasi</label>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="" id="" value="Dine In">
+            <!-- Opsi menggunakan select -->
+            <!-- <select class="form-control col-md-2" name="jenis_reservasi" id="" type="text">
+              <option value="Dine In">Dine In</option>
+              <option value="Take Away">Take Away</option>
+            </select> -->
+            <!-- Opsi menggunakan radio button -->
+            <div class="form-check ml-3">
+              <input class="form-check-input" type="radio" name="jenis_reservasi" id="" value="Dine In">
               <label class="form-check-label" for="">
                 Dine In
               </label>
             </div>          
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="" id="" value="Take Away">
+            <div class="form-check ml-3">
+              <input class="form-check-input" type="radio" name="jenis_reservasi" id="" value="Take Away">
               <label class="form-check-label" for="">
                 Take Away
               </label>
@@ -100,24 +112,29 @@
           </div>
           <div class="form-group">
             <label for="">Layanan Tambahan</label>
-            <input type="text" name="" class="form-control" value="" placeholder="Masukan Layanan Tambahan" required/> 
+            <textarea class="form-control" name="" value="" placeholder="Masukan Layanan Tambahan" rows="3"></textarea>
           </div>
           <div class="form-group">            
             <label for="">Status</label>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="" id="" value="Pending">
+            <!-- Opsi menggunakan select -->
+            <!-- <select class="form-control col-md-2" name="status" id="" type="text">
+              <option value="Pending">Pending</option>
+              <option value="Completed">Completed</option>
+            </select> -->
+            <!-- Opsi menggunakan radio button -->
+            <div class="form-check ml-3">
+              <input class="form-check-input" type="radio" name="status" id="1" value="Pending">
               <label class="form-check-label" for="">
                 Pending
               </label>
             </div>          
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="" id="" value="Completed">
+            <div class="form-check ml-3">
+              <input class="form-check-input" type="radio" name="status" id="2" value="Completed">
               <label class="form-check-label" for="">
                 Completed
               </label>
             </div>
           </div>
-          <!-- <input type="hidden" name="id_dokter" value="<?php echo $data['id_dokter']; ?>" /> -->
           <button type="submit" name="submit" class="btn btn-primary">Submit</button>
         </div>
       </div>
