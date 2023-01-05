@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Viga&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
-  <title>Data Reservasi</title>
+  <title>Data Menu</title>
   <!-- <link rel="icon" type="image/x-icon" href="../aset/favicon.ico"> -->
 </head>
 <body>
@@ -32,13 +32,13 @@
         </a>
       </li>
       <li>
-        <a href="reservasi.html" class="active">
+        <a href="reservasi.html">
           <i class='bx bxs-receipt'></i>
           <span class="links_name">Tabel Record Reservasi</span>
         </a>
       </li>
       <li>
-        <a href="menu.html">
+        <a href="menu.html" class="active">
           <i class='bx bxs-food-menu' ></i>
           <span class="links_name">Tabel Menu</span>
         </a>
@@ -67,7 +67,7 @@
     <nav>
       <div class="sidebar-button">
         <i class='bx bx-menu sidebarBtn'></i>
-        <span class="dashboard">Data Reservasi</span>
+        <span class="dashboard">Data Menu</span>
       </div>
       <div class="profile-details">
         <img src="../aset/potrait.jpg" alt="">
@@ -80,8 +80,9 @@
         <div class="card">
           <div class="card-body">
             <br>
-            <h5 class="card-title mb-4" style="text-align: center;">Tabel Record Reservasi</h5>
+            <h5 class="card-title mb-4" style="text-align: center;">Tabel Menu</h5>
             <hr>
+            <a href="menu_create.html" class="btn btn-primary" role="button"><i class='bx bx-plus-medical' ></i> Input Data</a>
             <div class="table-responsive">
               <table class="table table-bordered table-hover">
                 <br>
@@ -89,14 +90,8 @@
                   <tr>
                     <th>ID</th>
                     <th>Nama</th>
-                    <th>Email</th>
-                    <th>No Telp</th>
-                    <th>Tanggal</th>
-                    <th>Jam Datang</th>
-                    <th>Jumlah Tamu</th>
-                    <th>No Meja</th>
-                    <th>Layanan Tambahan</th>
-                    <th>Status</th>
+                    <th>Harga</th>
+                    <th>Foto Menu</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -104,22 +99,15 @@
                   <tr>
                     <td>ID</td>
                     <td>Nama</td>
-                    <td>Email</td>
-                    <td>No Telp</td>
-                    <td>Tanggal</td>
-                    <td>Jam Datang</td>
-                    <td>Jumlah Tamu</td>
-                    <td>No Meja</td>
-                    <td>Layanan Tambahan</td>
-                    <td>Status</td>
+                    <td>Harga</td>
+                    <td>Foto Menu</td>
                     <td>
-                      <a href="reservasi_update.html" class="btn btn-warning" role="button"><i class='bx bxs-edit'></i> Update</a>
+                      <a href="menu_update.html" class="btn btn-warning" role="button"><i class='bx bxs-edit'></i> Update</a>
                       <a href="#" class="btn btn-danger" role="button"><i class='bx bxs-trash-alt'></i> Delete</a>
                     </td>
                   </tr>
                 </tbody>
               </table>
-              <!-- <a href="reservasi_create.html" class="btn btn-primary mb-3" role="button"><i class='bx bx-plus-medical' ></i>Input Data</a> -->
             </div>
           </div>
         </div>

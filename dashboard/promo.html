@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Viga&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
-  <title>Data Reservasi</title>
+  <title>Data Promo</title>
   <!-- <link rel="icon" type="image/x-icon" href="../aset/favicon.ico"> -->
 </head>
 <body>
@@ -32,7 +32,7 @@
         </a>
       </li>
       <li>
-        <a href="reservasi.html" class="active">
+        <a href="reservasi.html">
           <i class='bx bxs-receipt'></i>
           <span class="links_name">Tabel Record Reservasi</span>
         </a>
@@ -44,7 +44,7 @@
         </a>
       </li>
       <li>
-        <a href="promo.html">
+        <a href="promo.html" class="active">
           <i class='bx bxs-discount'></i>
           <span class="links_name">Tabel Promo</span>
         </a>
@@ -67,7 +67,7 @@
     <nav>
       <div class="sidebar-button">
         <i class='bx bx-menu sidebarBtn'></i>
-        <span class="dashboard">Data Reservasi</span>
+        <span class="dashboard">Data Promo</span>
       </div>
       <div class="profile-details">
         <img src="../aset/potrait.jpg" alt="">
@@ -80,46 +80,34 @@
         <div class="card">
           <div class="card-body">
             <br>
-            <h5 class="card-title mb-4" style="text-align: center;">Tabel Record Reservasi</h5>
+            <h5 class="card-title mb-4" style="text-align: center;">Tabel Promo</h5>
             <hr>
+            <a href="promo_create.html" class="btn btn-primary" role="button"><i class='bx bx-plus-medical' ></i> Input Data</a>
             <div class="table-responsive">
               <table class="table table-bordered table-hover">
                 <br>
                 <thead class="bg-primary text-white">
                   <tr>
                     <th>ID</th>
-                    <th>Nama</th>
-                    <th>Email</th>
-                    <th>No Telp</th>
-                    <th>Tanggal</th>
-                    <th>Jam Datang</th>
-                    <th>Jumlah Tamu</th>
-                    <th>No Meja</th>
-                    <th>Layanan Tambahan</th>
-                    <th>Status</th>
+                    <th>Menu</th>
+                    <th>Harga Awal</th>
+                    <th>Harga Promo</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td>ID</td>
-                    <td>Nama</td>
-                    <td>Email</td>
-                    <td>No Telp</td>
-                    <td>Tanggal</td>
-                    <td>Jam Datang</td>
-                    <td>Jumlah Tamu</td>
-                    <td>No Meja</td>
-                    <td>Layanan Tambahan</td>
-                    <td>Status</td>
+                    <td>Menu</td>
+                    <td>Harga Awal</td>
+                    <td>Harga Promo</td>
                     <td>
-                      <a href="reservasi_update.html" class="btn btn-warning" role="button"><i class='bx bxs-edit'></i> Update</a>
+                      <a href="promo_update.html" class="btn btn-warning" role="button"><i class='bx bxs-edit'></i> Update</a>
                       <a href="#" class="btn btn-danger" role="button"><i class='bx bxs-trash-alt'></i> Delete</a>
                     </td>
                   </tr>
                 </tbody>
               </table>
-              <!-- <a href="reservasi_create.html" class="btn btn-primary mb-3" role="button"><i class='bx bx-plus-medical' ></i>Input Data</a> -->
             </div>
           </div>
         </div>
