@@ -3,29 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <!-- Boxicons CDN Link -->
-  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css2?family=Viga&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="dashboard.css">
+  <link rel="stylesheet" href="style.css">
   <title>Dashboard</title>
   <!-- <link rel="icon" type="image/x-icon" href="../aset/favicon.ico"> -->
 </head>
 <body>
   <div class="sidebar">
     <div class="logo-details">
-      <!-- <i class="fa-solid fa-user-doctor"></i> -->
-      <!-- <img src="../aset/icon.png" alt="" class="mr-3 ml-2"> -->
       <i class='bx bxs-bowl-hot'></i>
       <span class="logo_name">Dashboard</span>
     </div>
     <ul class="nav-links">
       <li>
         <a href="dashboard.html" class="active">
-          <i class='bx bx-grid-alt' ></i>
+          <i class='bx bxs-dashboard'></i>
           <span class="links_name">Dashboard</span>
         </a>
       </li>
@@ -37,8 +34,26 @@
       </li>
       <li>
         <a href="reservasi.html">
-          <i class='bx bxs-calendar' ></i>
-          <span class="links_name">Tabel Reservasi</span>
+          <i class='bx bxs-receipt'></i>
+          <span class="links_name">Tabel Record Reservasi</span>
+        </a>
+      </li>
+      <li>
+        <a href="menu.html">
+          <i class='bx bxs-food-menu' ></i>
+          <span class="links_name">Tabel Menu</span>
+        </a>
+      </li>
+      <li>
+        <a href="promo.html">
+          <i class='bx bxs-discount'></i>
+          <span class="links_name">Tabel Promo</span>
+        </a>
+      </li>
+      <li>
+        <a href="meja.html">
+          <i class='bx bxs-chalkboard'></i>
+          <span class="links_name">Tabel Meja</span>
         </a>
       </li>
       <li class="log_out">
@@ -55,13 +70,8 @@
         <i class='bx bx-menu sidebarBtn'></i>
         <span class="dashboard">Dashboard</span>
       </div>
-      <!-- <div class="search-box">
-        <input type="text" placeholder="Search...">
-        <i class='bx bx-search' ></i>
-      </div> -->
       <div class="profile-details">
         <img src="../aset/potrait.jpg" alt="">
-        <!-- <i class="fa-solid fa-user-tie"></i> -->
         <span class="admin_name">Admoon</span>
       </div>
     </nav>
@@ -148,29 +158,19 @@
         <div class="top-sales box">
           <div class="title">List User</div>
           <ul class="top-sales-details">
-            <!-- <ul class="top-sales-details">
-              <li class="topic">Username</li>
-              <li><span>Admoon</span></li>
-              <li><a href="#">Fatur</a></li>
-              <li><a href="#">Bagus</a></li>
-            </ul> -->
             <li>
              <span class="product" style="font-weight:500; font-size: 20px;">Username </span>
-             <!-- <span class="price"  style="font-weight:500; font-size: 20px;">Email</span> -->
              <span class="price" style="font-weight:500; font-size: 20px;">No Telp</span>
            </li><li>
              <span class="product">Admoon</span>
-             <!-- <span class="price">admon@gmail.com</span> -->
              <span class="price">010111011</span>
            </li>
            <li>
              <span class="product">Fatur</span>
-             <!-- <span class="price">fatur@gmail.com</span> -->
              <span class="price">0891561756</span>
            </li>
            <li>
             <span class="product">Bagus</span>
-            <!-- <span class="price">bagus@gmail.com</span> -->
             <span class="price">0813615489</span>
           </li>
         </ul>

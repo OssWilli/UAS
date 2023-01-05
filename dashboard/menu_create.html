@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Viga&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
-  <title>Update Data User</title>
+  <title>Input Data Menu</title>
   <link rel="icon" type="image/x-icon" href="../aset/favicon.ico">
 </head>
 <body>
@@ -29,7 +29,7 @@
         </a>
       </li>
       <li>
-        <a href="user.html" class="active">
+        <a href="user.html">
           <i class='bx bxs-user'></i>
           <span class="links_name">Tabel User</span>
         </a>
@@ -41,7 +41,7 @@
         </a>
       </li>
       <li>
-        <a href="menu.html">
+        <a href="menu.html" class="active">
           <i class='bx bxs-food-menu' ></i>
           <span class="links_name">Tabel Menu</span>
         </a>
@@ -70,7 +70,7 @@
     <nav>
       <div class="sidebar-button">
         <i class='bx bx-menu sidebarBtn'></i>
-        <span class="dashboard">Update Data</span>
+        <span class="dashboard">Input Data</span>
       </div>
       <div class="profile-details">
         <img src="../aset/potrait.jpg" alt="">
@@ -82,21 +82,40 @@
      <div class="container">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title mt-4 mb-4" style="text-align: center;">Update Data User</h5>
+          <h5 class="card-title mt-4 mb-4" style="text-align: center;">Input Data Menu</h5>
           <hr>
           <form action="">
            <div class="form-group">
-            <label for="">Username</label>
-            <input type="text" name="" class="form-control" value="Admoon" placeholder="Masukan Username" required/>
+            <label for="">Nama</label>
+            <input type="text" name="" class="form-control" value="" placeholder="Masukan Nama" required/>
           </div>
           <div class="form-group">
-            <label for="">Password</label>
-            <input type="password" name="" class="form-control" value="ooooo" placeholder="Masukan Password" required/>
+            <label for="">Harga</label>
+            <input type="number" name="" class="form-control" value="" placeholder="Masukan Harga" min="0" required/>
+          </div>
+          <!-- <div class="form-group">
+            <label for="">Promo</label>
+            <select class="form-control col-md-2" name="promo" id="" type="text">
+              <option value="1">1-Promo</option>
+              <option value="2">2-Promo2</option>
+              <option value="3">3-Promo3</option>
+            </select>
+          </div> -->
+          <div class="form-group">
+            <label for="">Foto Menu</label>
+            <!-- Opsi File Picker 1 -->
+            <!-- <input type="file" class="form-control-file" id="exampleFormControlFile1"> -->
+
+            <!-- Opsi File Picker 2 -->
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" id="inputGroupFile03" aria-describedby="inputGroupFileAddon03">
+              <label class="custom-file-label col-sm-3" for="inputGroupFile03">Choose file</label>
+            </div>
           </div>
           <div class="form-row">
-          <button type="submit" name="submit" class="btn btn-primary mr-2">Submit</button>
-        </form>
-        <a href="user.html" class="btn btn-secondary" role="button">Cancel</a>
+            <button type="submit" name="submit" class="btn btn-primary mr-2">Submit</button>
+          </form>
+          <a href="menu.html" class="btn btn-secondary" role="button">Cancel</a>
         </div>
       </div>
     </div>

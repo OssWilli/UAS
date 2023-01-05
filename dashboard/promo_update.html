@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Viga&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
-  <title>Update Data User</title>
+  <title>Update Data Promo</title>
   <link rel="icon" type="image/x-icon" href="../aset/favicon.ico">
 </head>
 <body>
@@ -29,7 +29,7 @@
         </a>
       </li>
       <li>
-        <a href="user.html" class="active">
+        <a href="user.html">
           <i class='bx bxs-user'></i>
           <span class="links_name">Tabel User</span>
         </a>
@@ -47,7 +47,7 @@
         </a>
       </li>
       <li>
-        <a href="promo.html">
+        <a href="promo.html" class="active">
           <i class='bx bxs-discount'></i>
           <span class="links_name">Tabel Promo</span>
         </a>
@@ -82,21 +82,30 @@
      <div class="container">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title mt-4 mb-4" style="text-align: center;">Update Data User</h5>
+          <h5 class="card-title mt-4 mb-4" style="text-align: center;">Update Data Promo</h5>
           <hr>
           <form action="">
            <div class="form-group">
-            <label for="">Username</label>
-            <input type="text" name="" class="form-control" value="Admoon" placeholder="Masukan Username" required/>
+            <label for="">Menu</label>
+            <select class="form-control col-md-2" name="promo" id="" type="text">
+              <option value="Menu1">1-Menu</option>
+              <option value="Menu2">2-Menu2</option>
+              <option value="Menu3">3-Menu3</option>
+            </select>
+            <!-- <input type="text" name="" class="form-control" value="" placeholder="Masukan Menu" required/> -->
           </div>
           <div class="form-group">
-            <label for="">Password</label>
-            <input type="password" name="" class="form-control" value="ooooo" placeholder="Masukan Password" required/>
+            <label for="">Harga Awal</label>
+            <input type="number" name="" class="form-control" value="15.000" placeholder="Masukan Harga Awal" disabled required/>
+          </div>
+          <div class="form-group">
+            <label for="">Harga Promo</label>
+            <input type="number" name="" class="form-control" value="12.000" placeholder="Masukan Harga Promo" min="0" required/>
           </div>
           <div class="form-row">
-          <button type="submit" name="submit" class="btn btn-primary mr-2">Submit</button>
-        </form>
-        <a href="user.html" class="btn btn-secondary" role="button">Cancel</a>
+            <button type="submit" name="submit" class="btn btn-primary mr-2">Submit</button>
+          </form>
+          <a href="promo.html" class="btn btn-secondary" role="button">Cancel</a>
         </div>
       </div>
     </div>
