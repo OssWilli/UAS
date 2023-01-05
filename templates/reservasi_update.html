@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Boxicons CDN Link -->
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">        
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Viga&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <title>Update Data Reservasi</title>
+  <link rel="icon" type="image/x-icon" href="../aset/favicon.ico">
+</head>
+<body>
+  <div class="sidebar">
+    <div class="logo-details">
+      <i class='bx bxs-bowl-hot'></i>
+      <span class="logo_name">Dashboard</span>
+    </div>
+    <ul class="nav-links">
+      <li>
+        <a href="dashboard.html">
+          <i class='bx bxs-dashboard'></i>
+          <span class="links_name">Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a href="user.html">
+          <i class='bx bxs-user'></i>
+          <span class="links_name">Tabel User</span>
+        </a>
+      </li>
+      <li>
+        <a href="reservasi.html" class="active">
+          <i class='bx bxs-receipt'></i>
+          <span class="links_name">Tabel Record Reservasi</span>
+        </a>
+      </li>
+      <li>
+        <a href="menu.html">
+          <i class='bx bxs-food-menu' ></i>
+          <span class="links_name">Tabel Menu</span>
+        </a>
+      </li>
+      <li>
+        <a href="promo.html">
+          <i class='bx bxs-discount'></i>
+          <span class="links_name">Tabel Promo</span>
+        </a>
+      </li>
+      <li>
+        <a href="meja.html">
+          <i class='bx bxs-chalkboard'></i>
+          <span class="links_name">Tabel Meja</span>
+        </a>
+      </li>
+      <li class="log_out">
+        <a href="../index.html">
+          <i class='bx bx-log-out'></i>
+          <span class="links_name">Kembali</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <section class="home-section">
+    <nav>
+      <div class="sidebar-button">
+        <i class='bx bx-menu sidebarBtn'></i>
+        <span class="dashboard">Update Data</span>
+      </div>
+      <div class="profile-details">
+        <img src="../assets/img/potrait.jpg" alt="">
+        <span class="admin_name">Admoon</span>
+      </div>
+    </nav>
+
+    <div class="home-content">
+     <div class="container">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title mt-4 mb-4" style="text-align: center;">Update Data Reservasi</h5>
+          <hr>
+          <form action="">
+           <div class="form-group">
+            <label for="">Nama</label>
+            <input type="text" name="" class="form-control" value="Nama" placeholder="Masukan Nama" required/>
+          </div>
+          <div class="form-group">
+            <label for="">Email</label>
+            <input type="text" name="" class="form-control" value="email@gmail.com" placeholder="Masukan Email" required/>
+          </div>
+          <div class="form-group">
+            <label for="">Nomor Telepon</label>
+            <input type="number" name="" class="form-control" value="0861249591" placeholder="Masukan Nomor Telepon" min="0" required/>
+          </div>
+          <div class="form-group">
+            <label for="">Jumlah Tamu</label>
+            <select class="form-control col-md-2" name="jum_tamu" id="" type="text">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+            <!-- <input type="number" name="" class="form-control" value="" placeholder="Masukan Jumlah Tamu" required/>	 -->
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="">Tanggal</label>
+              <input type="date" name="" class="form-control" value="" placeholder="Masukan Tanggal" required/>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="">Jam Datang</label>
+              <input type="time" name="" class="form-control" value="" placeholder="Masukan Jam Datang" required/>
+            </div>
+          </div>
+          <div class="form-group">            
+            <label for="">Jenis Reservasi</label>
+            <!-- Opsi menggunakan select -->
+            <!-- <select class="form-control col-md-2" name="jenis_reservasi" id="" type="text">
+              <option value="Dine In">Dine In</option>
+              <option value="Take Away">Take Away</option>
+            </select> -->
+            <!-- Opsi menggunakan radio button -->
+            <div class="form-check ml-3">
+              <input class="form-check-input" type="radio" name="jenis_reservasi" id="" value="Dine In">
+              <label class="form-check-label" for="">
+                Dine In
+              </label>
+            </div>          
+            <div class="form-check ml-3">
+              <input class="form-check-input" type="radio" name="jenis_reservasi" id="" value="Take Away">
+              <label class="form-check-label" for="">
+                Take Away
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="">Layanan Tambahan</label>
+            <textarea class="form-control" name="" value="" placeholder="Masukan Layanan Tambahan" rows="3"></textarea>
+          </div>
+          <div class="form-group">            
+            <label for="">Status</label>
+            <!-- Opsi menggunakan select -->
+            <!-- <select class="form-control col-md-2" name="status" id="" type="text">
+              <option value="Pending">Pending</option>
+              <option value="Completed">Completed</option>
+            </select> -->
+            <!-- Opsi menggunakan radio button -->
+            <div class="form-check ml-3">
+              <input class="form-check-input" type="radio" name="status" id="1" value="Pending">
+              <label class="form-check-label" for="">
+                Pending
+              </label>
+            </div>          
+            <div class="form-check ml-3">
+              <input class="form-check-input" type="radio" name="status" id="2" value="Completed">
+              <label class="form-check-label" for="">
+                Completed
+              </label>
+            </div>
+          </div>
+          <div class="form-row">
+            <button type="submit" name="submit" class="btn btn-primary mr-2">Submit</button>
+          </form>
+          <a class="btn btn-secondary" href="reservasi.html" role="button">Cancel</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</body>
+</html>
