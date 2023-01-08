@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css2?family=Viga&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../static/css/style.css">
   <title>Data Reservasi</title>
   <!-- <link rel="icon" type="image/x-icon" href="../aset/favicon.ico"> -->
 </head>
@@ -70,7 +70,7 @@
         <span class="dashboard">Data Reservasi</span>
       </div>
       <div class="profile-details">
-        <img src="../assets/img/potrait.jpg" alt="">
+        <img src="../static/img/potrait.jpg" alt="">
         <span class="admin_name">Admoon</span>
       </div>
     </nav>
@@ -101,22 +101,24 @@
                   </tr>
                 </thead>
                 <tbody>
+                  {% for item in data%}
                   <tr>
-                    <td>ID</td>
-                    <td>Nama</td>
-                    <td>Email</td>
-                    <td>No Telp</td>
-                    <td>Tanggal</td>
-                    <td>Jam Datang</td>
-                    <td>Jumlah Tamu</td>
-                    <td>No Meja</td>
-                    <td>Layanan Tambahan</td>
-                    <td>Status</td>
+                    <td>{{item[0]}}</td>
+                    <td>{{item[1]}}</td>
+                    <td>{{item[2]}}</td>
+                    <td>{{item[3]}}</td>
+                    <td>{{item[4]}}</td>
+                    <td>{{item[5]}}</td>
+                    <td>{{item[6]}}</td>
+                    <td>{{item[7]}}</td>
+                    <td>{{item[8]}}</td>
+                    <td>{{item[9]}}</td>
                     <td>
                       <a href="reservasi_update.html" class="btn btn-warning" role="button"><i class='bx bxs-edit'></i> Update</a>
                       <a href="#" class="btn btn-danger" role="button"><i class='bx bxs-trash-alt'></i> Delete</a>
                     </td>
                   </tr>
+                  {%endfor%}
                 </tbody>
               </table>
               <!-- <a href="reservasi_create.html" class="btn btn-primary mb-3" role="button"><i class='bx bx-plus-medical' ></i>Input Data</a> -->

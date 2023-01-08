@@ -9,7 +9,7 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
-  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../static/css/style.css">
   <title>Data User</title>
   <!-- <link rel="icon" type="image/x-icon" href="../aset/favicon.ico"> -->
 </head>
@@ -71,7 +71,7 @@
         <span class="dashboard">Data User</span>
       </div>
       <div class="profile-details">
-        <img src="../assets/img/potrait.jpg" alt="">
+        <img src="../static/img/potrait.jpg" alt="">
         <span class="admin_name">Admoon</span>
       </div>
     </nav>
@@ -96,19 +96,22 @@
                     <th>Action</th>
                   </tr>
                 </thead>
+                {%for i in data%}
                 <tbody>
+                  <!-- LOOP  -->
                   <tr>
-                    <td>ID</td>
-                    <td>Username</td>
+                    <td>{{i[0]}}</td>
+                    <td>{{i[1]}}</td>
                     <!-- <td>Email</td> -->
                     <!-- <td>No Telp</td> -->
-                    <td>Password</td>
+                    <td>{{i[2]}}</td>
                     <td>
                       <!-- <a href="user_update.html" class="btn btn-warning" role="button"><i class='bx bxs-edit'></i> Update</a> -->
                       <!-- Button trigger modal -->
+                      
                       <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#staticBackdrop"><i class='bx bxs-edit'></i> Update</button>
 
-                      <a href="#" class="btn btn-danger" role="button"><i class='bx bxs-trash-alt'></i> Delete</a>
+                      <a href="/deleteUser/{{i[0]}}" onclick="return confirm('Are you sure you want to delete?');" class="btn btn-danger" role="button"><i class='bx bxs-trash-alt'></i> Delete</a>
                     </td>
                     <!-- Modal -->
                     <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -121,20 +124,16 @@
                             </button>
                           </div>
                           <div class="modal-body">
-                            <form action="">
-                             <div class="form-group">
-                              <label for="">Username</label>
-                              <input type="text" name="" class="form-control" value="Admoon" placeholder="Masukan Username" required/>
-                            </div>
-                            <div class="form-group">
-                              <label for="">Password</label>
-                              <input type="password" name="" class="form-control" value="ooooo" placeholder="Masukan Password" required/>
-                            </div>
-                            <!-- <div class="form-row">
-                              <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                            <form action="\updateUser\{{i[0]}}" method="post">
+                              <div class="form-group">
+                                <label for="">Username</label>
+                                <input type="text" name="username" class="form-control" placeholder="{{i[1]}}" required/>
+                              </div>
+                              <div class="form-group">
+                                <label for="">Password</label>
+                                <input type="password" name="password" class="form-control" placeholder="{{i[2]}}" required/>
+                              </div>
                             </form>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                          </div> -->
                         </div>
                         <div class="modal-footer">
                           <button type="submit" name="submit" class="btn btn-primary">Submit</button>
@@ -146,6 +145,7 @@
                 </div>
               </tr>
             </tbody>
+                {% endfor %}
           </table>
           <!-- <a href="user_create.html" class="btn btn-primary mb-3" role="button"><i class='bx bx-plus-medical' ></i>Input Data</a> -->
         </div>
