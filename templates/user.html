@@ -124,7 +124,7 @@
                             </button>
                           </div>
                           <div class="modal-body">
-                            <form action="\updateUser\{{i[0]}}" method="post">
+                            <form action="/updateUser/{{i[0]}}" method="post">
                               <div class="form-group">
                                 <label for="">Username</label>
                                 <input type="text" name="username" class="form-control" placeholder="{{i[1]}}" required/>
@@ -133,7 +133,6 @@
                                 <label for="">Password</label>
                                 <input type="password" name="password" class="form-control" placeholder="{{i[2]}}" required/>
                               </div>
-                            </form>
                         </div>
                         <div class="modal-footer">
                           <button type="submit" name="submit" class="btn btn-primary">Submit</button>
