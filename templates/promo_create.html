@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css2?family=Viga&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../static/css/style.css">
   <title>Input Data Promo</title>
   <link rel="icon" type="image/x-icon" href="../aset/favicon.ico">
 </head>
@@ -73,7 +73,7 @@
         <span class="dashboard">Input Data</span>
       </div>
       <div class="profile-details">
-        <img src="../assets/img/potrait.jpg" alt="">
+        <img src="../static/img/potrait.jpg" alt="">
         <span class="admin_name">Admoon</span>
       </div>
     </nav>
@@ -84,28 +84,24 @@
         <div class="card-body">
           <h5 class="card-title mt-4 mb-4" style="text-align: center;">Input Data Promo</h5>
           <hr>
-          <form action="">
+          <form action="" method="post">
            <div class="form-group">
             <label for="">Menu</label>
-            <select class="form-control col-md-2" name="promo" id="" type="text">
-              <option value="Menu1">1-Menu</option>
-              <option value="Menu2">2-Menu2</option>
-              <option value="Menu3">3-Menu3</option>
+            <select class="form-control col-md-2" name="menu"  type="text">
+              {%for menu in data_menu%}
+              <option value="{{menu[0]}}">{{menu[0]}}.{{menu[1]}} - Rp.{{menu[3]}}</option>
+              {%endfor%}
             </select>
             <!-- <input type="text" name="" class="form-control" value="" placeholder="Masukan Menu" required/> -->
           </div>
           <div class="form-group">
-            <label for="">Harga Awal</label>
-            <input type="number" name="" class="form-control" value="15.000" placeholder="Masukan Harga Awal" disabled required/>
-          </div>
-          <div class="form-group">
             <label for="">Harga Promo</label>
-            <input type="number" name="" class="form-control" value="" placeholder="Masukan Harga Promo" min="0" required/>
+            <input type="number" name="harga_akhir" class="form-control" placeholder="Masukan Harga Promo" min="0" required/>
           </div>
           <div class="form-row">
             <button type="submit" name="submit" class="btn btn-primary mr-2">Submit</button>
           </form>
-          <a href="promo.html" class="btn btn-secondary" role="button">Cancel</a>
+          <a href="{{url_for('dashboardPromo')}}" class="btn btn-secondary" role="button">Cancel</a>
         </div>
       </div>
     </div>

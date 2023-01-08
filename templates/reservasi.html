@@ -107,15 +107,15 @@
                     <td>{{item[1]}}</td>
                     <td>{{item[2]}}</td>
                     <td>{{item[3]}}</td>
-                    <td>{{item[4]}}</td>
                     <td>{{item[5]}}</td>
                     <td>{{item[6]}}</td>
-                    <td>{{item[7]}}</td>
-                    <td>{{item[8]}}</td>
+                    <td>{{item[4]}}</td>
                     <td>{{item[9]}}</td>
+                    <td>{{item[7]}}</td>
+                    <td>{{item[11]}}</td>
                     <td>
-                      <a href="reservasi_update.html" class="btn btn-warning" role="button"><i class='bx bxs-edit'></i> Update</a>
-                      <a href="#" class="btn btn-danger" role="button"><i class='bx bxs-trash-alt'></i> Delete</a>
+                      <a href="/updateReservasi/{{item[0]}}" class="btn btn-warning" role="button"><i class='bx bxs-edit'></i> Update</a>
+                      <a href="/deleteReservasi/{{item[0]}}" class="btn btn-danger" role="button"><i class='bx bxs-trash-alt'></i> Delete</a>
                     </td>
                   </tr>
                   {%endfor%}

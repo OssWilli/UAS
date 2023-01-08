@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css2?family=Viga&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../static/css/style.css">
   <title>Data Promo</title>
   <!-- <link rel="icon" type="image/x-icon" href="../aset/favicon.ico"> -->
 </head>
@@ -70,7 +70,7 @@
         <span class="dashboard">Data Promo</span>
       </div>
       <div class="profile-details">
-        <img src="../assets/img/potrait.jpg" alt="">
+        <img src="../static/img/potrait.jpg" alt="">
         <span class="admin_name">Admoon</span>
       </div>
     </nav>
@@ -82,7 +82,7 @@
             <br>
             <h5 class="card-title mb-4" style="text-align: center;">Tabel Promo</h5>
             <hr>
-            <a href="promo_create.html" class="btn btn-primary" role="button"><i class='bx bx-plus-medical' ></i> Input Data</a>
+            <a href="{{url_for('createPromo', filename='promo_create.html')}}" class="btn btn-primary" role="button"><i class='bx bx-plus-medical' ></i> Input Data</a>
             <div class="table-responsive">
               <table class="table table-bordered table-hover">
                 <br>
@@ -95,18 +95,20 @@
                     <th>Action</th>
                   </tr>
                 </thead>
+                {%for item in data%}
                 <tbody>
                   <tr>
-                    <td>ID</td>
-                    <td>Menu</td>
-                    <td>Harga Awal</td>
-                    <td>Harga Promo</td>
+                    <td>{{item[0]}}</td>
+                    <td>{{item[1]}}</td>
+                    <td>{{item[2]}}</td>
+                    <td>{{item[3]}}</td>
                     <td>
-                      <a href="promo_update.html" class="btn btn-warning" role="button"><i class='bx bxs-edit'></i> Update</a>
-                      <a href="#" class="btn btn-danger" role="button"><i class='bx bxs-trash-alt'></i> Delete</a>
+                      <a href="/updatePromo/{{item[0]}}" class="btn btn-warning" role="button"><i class='bx bxs-edit'></i> Update</a>
+                      <a href="/deletePromo/{{item[0]}}" class="btn btn-danger" role="button"><i class='bx bxs-trash-alt'></i> Delete</a>
                     </td>
                   </tr>
                 </tbody>
+                {%endfor%}
               </table>
             </div>
           </div>
