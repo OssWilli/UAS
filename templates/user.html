@@ -106,70 +106,42 @@
                     <!-- <td>No Telp</td> -->
                     <td>{{i[2]}}</td>
                     <td>
-                      <!-- <a href="user_update.html" class="btn btn-warning" role="button"><i class='bx bxs-edit'></i> Update</a> -->
+                      <a href="user_update.html" class="btn btn-warning" role="button"><i class='bx bxs-edit'></i> Update</a>
                       <!-- Button trigger modal -->
-                      
-                      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#staticBackdrop"><i class='bx bxs-edit'></i> Update</button>
+                      <!-- <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#staticBackdrop"><i class='bx bxs-edit'></i> Update</button> -->
 
                       <a href="/deleteUser/{{i[0]}}" onclick="return confirm('Are you sure you want to delete?');" class="btn btn-danger" role="button"><i class='bx bxs-trash-alt'></i> Delete</a>
                     </td>
                     <!-- Modal -->
-                    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Update Data User</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            <form action="/updateUser/{{i[0]}}" method="post">
-                              <div class="form-group">
-                                <label for="">Username</label>
-                                <input type="text" name="username" class="form-control" placeholder="{{i[1]}}" required/>
-                              </div>
-                              <div class="form-group">
-                                <label for="">Password</label>
-                                <input type="password" name="password" class="form-control" placeholder="{{i[2]}}" required/>
-                              </div>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="submit" name="submit" class="btn btn-primary">Submit</button>
-                        </form>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </tr>
-            </tbody>
+                    
+                  </tr>
+                </tbody>
                 {% endfor %}
-          </table>
-          <!-- <a href="user_create.html" class="btn btn-primary mb-3" role="button"><i class='bx bx-plus-medical' ></i>Input Data</a> -->
+              </table>
+              <!-- <a href="user_create.html" class="btn btn-primary mb-3" role="button"><i class='bx bx-plus-medical' ></i>Input Data</a> -->
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
-</section>
+  </section>
 
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-<script>
- let sidebar = document.querySelector(".sidebar");
- let sidebarBtn = document.querySelector(".sidebarBtn");
- sidebarBtn.onclick = function() {
-  sidebar.classList.toggle("active");
-  if(sidebar.classList.contains("active")){
-    sidebarBtn.classList.replace("bx-menu" ,"bx-menu-alt-right");
-  }else
-  sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
-}
+  <script>
+   let sidebar = document.querySelector(".sidebar");
+   let sidebarBtn = document.querySelector(".sidebarBtn");
+   sidebarBtn.onclick = function() {
+    sidebar.classList.toggle("active");
+    if(sidebar.classList.contains("active")){
+      sidebarBtn.classList.replace("bx-menu" ,"bx-menu-alt-right");
+    }else
+    sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+  }
 </script>
 
 </body>
