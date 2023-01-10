@@ -16,10 +16,6 @@ def getMysqlConnection():
 
 class MyForm(FlaskForm):
     file = FileField('File', validators=[FileAllowed(['txt', 'pdf', 'jpg', 'jpeg', 'png'])])
-    
-@app.route('/')
-def index():
-   return render_template('index.html', hidden="hidden")
 
 def getData(sqlstr):
        db = getMysqlConnection()
@@ -53,6 +49,35 @@ def getUpdateData(sqlstr, cur):
        cur.execute(sqlstr)
        data = cur.fetchone()
        return data
+
+# INDEX
+@app.route('/')
+def index():
+   return render_template('index.html', hidden="hidden")
+
+@app.route('/indexAdmin')
+def indexAdmin():
+       return render_template('index_admin.html')
+
+@app.route('/antrian')
+def antrian():
+       return render_template('antrian.html')
+
+@app.route('/daftarMenu')
+def daftar_menu():
+       return render_template('daftar_menu.html')
+
+@app.route('/daftarPesanan')
+def daftar_pesanan():
+       return render_template('pesanan.html')
+
+@app.route('/promo')
+def promo():
+       return render_template('promo.html')
+
+@app.route('/signUp')
+def signUp():
+       return render_template('signup.html')
 
 # DASHBOARD
 @app.route('/dashboard', methods=['GET', 'POST'])
@@ -310,6 +335,37 @@ def updateMenu(id):
 @app.route('/cek')
 def cek():
        return render_template('reservasi_user.html')
+
+#LOGIN
+@app.route('/login', methods=['GET','POST'])
+def login():
+       db = getMysqlConnection()
+       cur = db.cursor()
+       
+       if request.method == 'POST':
+              user = request.form['user']
+              password = request.form['password']
+
+              data = getUpdateData("SELECT * FROM user WHERE username='"+user+"'", cur)
+              print(data)
+              if data != None:
+                     if data[1] == 'admin':
+                            if password == data[2]:
+                                   return redirect(url_for("indexAdmin"))
+                            else:
+                                   return "Password yang Anda masukkan salah!"
+                     else:
+                            if password == data[2]:
+                                   return redirect(url_for("antrian"))
+                            else:
+                                   return "Password yang Anda masukkan salah!"
+              else:
+                     return ("Username tidak ditemukan!")
+
+       return render_template('signin.html')
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
