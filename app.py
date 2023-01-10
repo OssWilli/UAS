@@ -18,19 +18,19 @@ def getData(sqlstr):
        output_data = cur.fetchall()
        return output_data
 
-def deleteData(sqlstr, value):
+def deleteData(sqlstr, route):
        db = getMysqlConnection()
        cur = db.cursor()
        cur.execute(sqlstr)
        db.commit()
-       return redirect(url_for(f"{value}"))
+       return redirect(url_for(f"{route}"))
 
-def createData(sqlstr, value):
+def createData(sqlstr, route):
        db = getMysqlConnection()
        cur = db.cursor()
        cur.execute(sqlstr)
        db.commit()
-       return redirect(url_for(f"{value}"))
+       return redirect(url_for(f"{route}"))
 
 def getOneData(sqlstr):
        db = getMysqlConnection()
@@ -57,10 +57,10 @@ def dashboardUser():
 
 @app.route('/deleteUser/<int:id>')
 def deleteUser(id):
-       value = 'dashboardUser'
+       route = 'dashboardUser'
        idString = str(id)
        sqlstr = "DELETE FROM user WHERE id_user="+idString+""
-       return deleteData(sqlstr, value)
+       return deleteData(sqlstr, route)
 
 @app.route('/updateUser/<int:id>', methods=['GET','POST'])
 def updateUser(id):
@@ -94,10 +94,10 @@ def dashboardReservasi():
 
 @app.route('/deleteReservasi/<int:id>')
 def deleteReservasi(id):
-       value = 'dashboardReservasi'
+       route = 'dashboardReservasi'
        idString = str(id)
        sqlstr = "DELETE FROM reservasi WHERE id_pemesanan="+idString+""
-       return deleteData(sqlstr, value)
+       return deleteData(sqlstr, route)
        
 
 @app.route('/updateReservasi/<int:id>', methods=['GET','POST'])
@@ -144,16 +144,16 @@ def dashboardMeja():
 def createMeja():
        meja = request.form['meja']
        keterangan = request.form['keterangan']
-       value = 'dashboardMeja'
-       sqlstr = "INSERT INTO meja (`no_meja`, `keterangan`) VALUES ('"+meja+"', '"+keterangan+"')"
-       return createData(sqlstr, value)
+       route = 'dashboardMeja'
+       sqlstr = "INSERT INTO meja (`no_meja`, `keterangan`) routeS ('"+meja+"', '"+keterangan+"')"
+       return createData(sqlstr, route)
 
 @app.route('/deleteMeja/<int:id>')
 def deleteMeja(id):
-       value = 'dashboardMeja'
+       route = 'dashboardMeja'
        idString = str(id)
        sqlstr = "DELETE FROM meja WHERE no_meja="+idString+""
-       return deleteData(sqlstr, value)
+       return deleteData(sqlstr, route)
 
 @app.route('/updateMeja/<int:id>', methods=['GET','POST'])
 def updateMeja(id):
@@ -196,16 +196,16 @@ def createPromo():
               
               harga_awal = getOneData("SELECT harga from daftar_menu where id_menu='"+id_menu+"'")
               nama_menu = getOneData("SELECT menu from daftar_menu where id_menu='"+id_menu+"'")
-              value = 'dashboardPromo'
+              route = 'dashboardPromo'
               sqlstr = "INSERT INTO `promo` (`id_promo`, `menu`, `harga_awal`, `harga_promo`) VALUES (NULL, '"+nama_menu+"', '"+str(harga_awal)+"', '"+harga_promo+"')"
-              return createData(sqlstr, value)
+              return createData(sqlstr, route)
 
 @app.route('/deletePromo/<int:id>')
 def deletePromo(id):
-       value = 'dashboardPromo'
+       route = 'dashboardPromo'
        idString = str(id)
        sqlstr = "DELETE FROM promo WHERE id_promo="+idString+""
-       return deleteData(sqlstr, value)
+       return deleteData(sqlstr, route)
 
 @app.route('/updatePromo/<int:id>', methods=['GET','POST'])
 def updatePromo(id):
