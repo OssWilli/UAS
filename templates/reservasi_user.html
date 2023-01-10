@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Booking Form</title>
-	<link rel="stylesheet" href="../assets/css/style_reservasi.css">
+	<link rel="stylesheet" href="../static/css/style_reservasi.css">
 	<!-- Font -->
 	<link href="https://fonts.googleapis.com/css?family=Raleway:400,600,700,900" rel="stylesheet">
 </head>
@@ -77,6 +77,27 @@
 						<input type="Telepon" placeholder="(Optional)">
 					</div>
 
+					<!-- HIDDEN, USER OTOMATIS PENDING -->
+					<div class="form-group" hidden>            
+						<label for="">Status</label>
+						<!-- Opsi menggunakan select -->
+						<select class="form-control col-md-2" name="status" id="" type="text"  {{disabled}}>
+						  <option selected value="Pending">Pending</option>
+						</select>
+						<!-- Opsi menggunakan radio button -->
+						<!-- <div class="form-check ml-3">
+						  <input class="form-check-input" type="radio" name="status" id="1" value="Pending">
+						  <label class="form-check-label" for="">
+							Pending
+						  </label>
+						</div>          
+						<div class="form-check ml-3">
+						  <input class="form-check-input" type="radio" name="status" id="2" value="Completed">
+						  <label class="form-check-label" for="">
+							Completed
+						  </label> -->
+						</div>
+					  </div>
 					<button class="btn">Booking Now!</button>
 				</form>
 		</div>

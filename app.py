@@ -1,12 +1,22 @@
 from flask import Flask, flash, redirect, render_template, request, session, url_for, jsonify
+Flask
 import mysql.connector
+from flask_wtf import FlaskForm
+from wtforms import StringField
+from flask_wtf.file import FileField, FileAllowed
+from wtforms.validators import DataRequired
+from werkzeug.utils import secure_filename
+from filepath import BASE_PATH
+
 app = Flask(__name__)
 app.secret_key = "super secret key"
 
 def getMysqlConnection():
     return mysql.connector.connect(user='root', host='localhost', port='3306', password='', database='pa_web')
 
-
+class MyForm(FlaskForm):
+    file = FileField('File', validators=[FileAllowed(['txt', 'pdf', 'jpg', 'jpeg', 'png'])])
+    
 @app.route('/')
 def index():
    return render_template('index.html', hidden="hidden")
@@ -47,7 +57,11 @@ def getUpdateData(sqlstr, cur):
 # DASHBOARD
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
-       return render_template('dashboard.html')
+       data_user = getData("SELECT * FROM user")
+       total_reservasi = getData("SELECT * FROM reservasi")
+       reservasi_pending = getData("SELECT * FROM `reservasi` WHERE `status`= 'Pending'")
+       reservasi_selesai = getData("SELECT * FROM `reservasi` WHERE `status`= 'Selesai'")
+       return render_template('dashboard.html', data_user = data_user, total_reservasi = total_reservasi, reservasi_pending = reservasi_pending, reservasi_selesai = reservasi_selesai)
 
 # DATABASE USER
 @app.route('/dashboardUser')
@@ -227,11 +241,75 @@ def updatePromo(id):
              db.close()
              return render_template('promo_update.html', data=data, disabled='') 
 
+path = "../static/img/"
 
-# @app.route('/cek', methods=['GET','POST'])
-# def cek():       
-#        return render_template('reservasi_update.html')
+@app.route('/createMenu', methods=['GET','POST'])
+def createMenu():
+       form = MyForm()
+       if request.method == 'POST':
+              file = request.files['files']
+              nama = request.form['nama_makanan']
+              harga = request.form['harga']
 
+              # Sanitize the file name
+              filename = secure_filename(file.filename)
+
+              # Save the file to the filesystem
+              file.save(BASE_PATH + filename)
+
+              filepath = path + filename
+
+              route = 'dashboardMenu'
+              sqlstr = f"INSERT INTO `daftar_menu` (`id_menu`, `menu`, `harga`, `path`) VALUES (NULL, '{nama}', '{harga}', '{filepath}')"
+              return createData(sqlstr, route)
+
+       return render_template('menu_create.html', form=form)
+
+@app.route('/dashboardMenu', methods=['GET','POST'])
+def dashboardMenu():
+       data = getData("SELECT * FROM daftar_menu")
+       return render_template('menu.html', data=data)
+
+@app.route('/deleteMenu/<int:id>', methods=['GET', 'POST'])
+def deleteMenu(id):
+       route = 'dashboardMenu'
+       sqlstr = f"DELETE FROM daftar_menu WHERE id_menu={id}"
+       return deleteData(sqlstr, route)
+
+
+@app.route('/updateMenu/<int:id>', methods=['GET','POST'])
+def updateMenu(id):
+       db = getMysqlConnection()
+       cur = db.cursor()
+
+       data = getUpdateData(f"SELECT * FROM daftar_menu WHERE id_menu='{id}'", cur)
+
+       if request.method == 'POST':
+               file = request.files['files']
+               nama = request.form['nama_menu']
+               harga = request.form['harga']
+               # Sanitize the file name
+               filename = secure_filename(file.filename)
+
+               # Save the file to the filesystem
+               file.save(BASE_PATH + filename)
+
+               filepath = path + filename
+               sqlstr = f"UPDATE `daftar_menu` SET `menu` = '{nama}', `harga` = '{harga}', `path` = '{filepath}' WHERE `daftar_menu`.`id_menu` = {id}"
+               cur.execute(sqlstr)
+               db.commit()
+               cur.close()
+               db.close()
+               return render_template('promo_update.html', data=data, disabled='disabled') 
+       else:
+             cur.close()
+             db.close()
+             return render_template('menu_update.html', data=data, disabled='') 
+
+
+@app.route('/cek')
+def cek():
+       return render_template('reservasi_user.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
