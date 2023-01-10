@@ -1,0 +1,1 @@
+BASE_PATH = "C:/Users/Acer/Documents/GitHub/UAS/static/img/"

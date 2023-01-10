@@ -23,43 +23,43 @@
     </div>
     <ul class="nav-links">
       <li>
-        <a href="dashboard.html">
+        <a href="{{url_for('dashboard')}}">
           <i class='bx bxs-dashboard'></i>
           <span class="links_name">Dashboard</span>
         </a>
       </li>
       <li>
-        <a href="user.html">
+        <a href="{{url_for('dashboardUser')}}">
           <i class='bx bxs-user'></i>
           <span class="links_name">Tabel User</span>
         </a>
       </li>
       <li>
-        <a href="reservasi.html">
+        <a href="{{url_for('dashboardReservasi')}}">
           <i class='bx bxs-receipt'></i>
           <span class="links_name">Tabel Record Reservasi</span>
         </a>
       </li>
       <li>
-        <a href="menu.html">
+        <a href="{{url_for('dashboardMenu')}}">
           <i class='bx bxs-food-menu' ></i>
           <span class="links_name">Tabel Menu</span>
         </a>
       </li>
       <li>
-        <a href="promo.html" class="active">
+        <a href="{{url_for('dashboardPromo')}}" class="active">
           <i class='bx bxs-discount'></i>
           <span class="links_name">Tabel Promo</span>
         </a>
       </li>
       <li>
-        <a href="meja.html">
+        <a href="{{url_for('dashboardMeja')}}">
           <i class='bx bxs-chalkboard'></i>
           <span class="links_name">Tabel Meja</span>
         </a>
       </li>
       <li class="log_out">
-        <a href="../index.html">
+        <a href="{{url_for('index')}}">
           <i class='bx bx-log-out'></i>
           <span class="links_name">Kembali</span>
         </a>
@@ -89,7 +89,7 @@
             <label for="">Menu</label>
             <select class="form-control col-md-2" name="menu"  type="text">
               {%for menu in data_menu%}
-              <option value="{{menu[0]}}">{{menu[0]}}.{{menu[1]}} - Rp.{{menu[3]}}</option>
+              <option value="{{menu[0]}}">{{menu[0]}}.{{menu[1]}} - Rp.{{menu[2]}}</option>
               {%endfor%}
             </select>
             <!-- <input type="text" name="" class="form-control" value="" placeholder="Masukan Menu" required/> -->

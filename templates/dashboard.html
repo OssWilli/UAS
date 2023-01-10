@@ -39,7 +39,7 @@
         </a>
       </li>
       <li>
-        <a href="{{url_for('dashboardMeja')}}">
+        <a href="{{url_for('dashboardMenu')}}">
           <i class='bx bxs-food-menu' ></i>
           <span class="links_name">Tabel Menu</span>
         </a>
@@ -81,28 +81,40 @@
         <div class="box">
           <div class="right-side">
             <div class="box-topic">Total User</div>
-            <div class="number">99</div>
+              {% set index = namespace(count=0) %}
+              {% for i in data_user%}
+              {% endfor %}
+            <div class="number">{{data_user | count}}</div>
           </div>
           <i class='bx bxs-user cart'></i>
         </div>
         <div class="box">
           <div class="right-side">
             <div class="box-topic">Total Reservasi</div>
-            <div class="number">99</div>
+              {% set index = namespace(count=0) %}
+              {% for i in total_reservasi%}
+              {% endfor %}
+            <div class="number">{{total_reservasi | count}}</div>
           </div>
           <i class='bx bxs-calendar cart' ></i>
         </div>
         <div class="box">
           <div class="right-side">
             <div class="box-topic">Reservasi Pending</div>
-            <div class="number">9</div>
+              {% set index = namespace(count=0) %}
+              {% for i in reservasi_pending%}
+              {% endfor %}
+            <div class="number">{{reservasi_pending | count}}</div>
           </div>
           <i class='bx bxs-calendar-exclamation cart three'></i>
         </div>
         <div class="box">
           <div class="right-side">
             <div class="box-topic">Reservasi Selesai</div>
-            <div class="number">90</div>
+              {% set index = namespace(count=0) %}
+              {% for i in reservasi_selesai%}
+              {% endfor %}
+            <div class="number">{{reservasi_selesai | count}}</div>
           </div>
           <i class='bx bxs-calendar-check cart two'></i>
         </div>

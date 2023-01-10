@@ -23,43 +23,43 @@
     </div>
     <ul class="nav-links">
       <li>
-        <a href="dashboard.html">
+        <a href="{{url_for('dashboard')}}">
           <i class='bx bxs-dashboard'></i>
           <span class="links_name">Dashboard</span>
         </a>
       </li>
       <li>
-        <a href="user.html">
+        <a href="{{url_for('dashboardUser')}}">
           <i class='bx bxs-user'></i>
           <span class="links_name">Tabel User</span>
         </a>
       </li>
       <li>
-        <a href="reservasi.html">
+        <a href="{{url_for('dashboardReservasi')}}">
           <i class='bx bxs-receipt'></i>
           <span class="links_name">Tabel Record Reservasi</span>
         </a>
       </li>
       <li>
-        <a href="menu.html" class="active">
+        <a href="{{url_for('dashboardMenu')}}" class="active">
           <i class='bx bxs-food-menu' ></i>
           <span class="links_name">Tabel Menu</span>
         </a>
       </li>
       <li>
-        <a href="promo.html">
+        <a href="{{url_for('dashboardPromo')}}">
           <i class='bx bxs-discount'></i>
           <span class="links_name">Tabel Promo</span>
         </a>
       </li>
       <li>
-        <a href="meja.html">
+        <a href="{{url_for('dashboardMeja')}}">
           <i class='bx bxs-chalkboard'></i>
           <span class="links_name">Tabel Meja</span>
         </a>
       </li>
       <li class="log_out">
-        <a href="../index.html">
+        <a href="{{url_for('index')}}">
           <i class='bx bx-log-out'></i>
           <span class="links_name">Kembali</span>
         </a>
@@ -84,14 +84,14 @@
         <div class="card-body">
           <h5 class="card-title mt-4 mb-4" style="text-align: center;">Update Data Menu</h5>
           <hr>
-          <form action="">
+          <form action="/updateMenu/{{data[0]}}" method="post" enctype="multipart/form-data">
            <div class="form-group">
             <label for="">Nama</label>
-            <input type="text" name="" class="form-control" value="Mie Ayam" placeholder="Masukan Nama" required/>
+            <input type="text" name="nama_menu" class="form-control" value="{{data[1]}}" placeholder="Masukan Nama" required/>
           </div>
           <div class="form-group">
             <label for="">Harga</label>
-            <input type="number" name="" class="form-control" value="13.000" placeholder="Masukan Harga" min="0" required/>
+            <input type="number" name="harga" class="form-control" value="{{data[2]}}" placeholder="Masukan Harga" min="0" required/>
           </div>
           <!-- <div class="form-group">
             <label for="">Promo</label>
@@ -102,13 +102,13 @@
             </select>
           </div> -->
           <div class="form-group">
-            <label for="">Foto Menu</label>
+            <label for=""><img src="{{data[3]}}" style="width: 200px; height: 150px;" alt="gambar menu"></label>
             <!-- Opsi File Picker 1 -->
             <!-- <input type="file" class="form-control-file" id="exampleFormControlFile1"> -->
 
             <!-- Opsi File Picker 2 -->
-            <div class="custom-file">
-              <input type="file" class="custom-file-input" id="inputGroupFile03" aria-describedby="inputGroupFileAddon03">
+            <div class="custom-file" enctype="multipart/form-data">
+              <input type="file" name="files" class="custom-file-input" id="inputGroupFile03" aria-describedby="inputGroupFileAddon03" value="{{data[3]}}" required>
               <label class="custom-file-label col-sm-3" for="inputGroupFile03">Choose file</label>
             </div>
           </div>
