@@ -21,43 +21,43 @@
     </div>
     <ul class="nav-links">
       <li>
-        <a href="dashboard.html">
+        <a href="{{url_for('dashboard')}}">
           <i class='bx bxs-dashboard'></i>
           <span class="links_name">Dashboard</span>
         </a>
       </li>
       <li>
-        <a href="user.html" class="active">
+        <a href="#" class="active">
           <i class='bx bxs-user'></i>
           <span class="links_name">Tabel User</span>
         </a>
       </li>
       <li>
-        <a href="reservasi.html">
+        <a href="{{url_for('dashboardReservasi')}}">
           <i class='bx bxs-receipt'></i>
           <span class="links_name">Tabel Record Reservasi</span>
         </a>
       </li>
       <li>
-        <a href="menu.html">
+        <a href="{{url_for('dashboard')}}">
           <i class='bx bxs-food-menu' ></i>
           <span class="links_name">Tabel Menu</span>
         </a>
       </li>
       <li>
-        <a href="promo.html">
+        <a href="{{url_for('dashboardPromo')}}">
           <i class='bx bxs-discount'></i>
           <span class="links_name">Tabel Promo</span>
         </a>
       </li>
       <li>
-        <a href="meja.html">
+        <a href="{{url_for('dashboardMeja')}}">
           <i class='bx bxs-chalkboard'></i>
           <span class="links_name">Tabel Meja</span>
         </a>
       </li>
       <li class="log_out">
-        <a href="../index.html">
+        <a href="{{url_for('index')}}">
           <i class='bx bx-log-out'></i>
           <span class="links_name">Kembali</span>
         </a>
@@ -96,21 +96,21 @@
                     <th>Action</th>
                   </tr>
                 </thead>
-                {%for i in data%}
+                {%for item in data%}
                 <tbody>
                   <!-- LOOP  -->
                   <tr>
-                    <td>{{i[0]}}</td>
-                    <td>{{i[1]}}</td>
+                    <td>{{item[0]}}</td>
+                    <td>{{item[1]}}</td>
                     <!-- <td>Email</td> -->
                     <!-- <td>No Telp</td> -->
-                    <td>{{i[2]}}</td>
+                    <td>{{item[2]}}</td>
                     <td>
-                      <a href="user_update.html" class="btn btn-warning" role="button"><i class='bx bxs-edit'></i> Update</a>
+                      <a href="/updateUser/{{item[0]}}" class="btn btn-warning" role="button"><i class='bx bxs-edit'></i> Update</a>
                       <!-- Button trigger modal -->
                       <!-- <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#staticBackdrop"><i class='bx bxs-edit'></i> Update</button> -->
 
-                      <a href="/deleteUser/{{i[0]}}" onclick="return confirm('Are you sure you want to delete?');" class="btn btn-danger" role="button"><i class='bx bxs-trash-alt'></i> Delete</a>
+                      <a href="/deleteUser/{{item[0]}}" onclick="return confirm('Are you sure you want to delete?');" class="btn btn-danger" role="button"><i class='bx bxs-trash-alt'></i> Delete</a>
                     </td>
                     <!-- Modal -->
                     

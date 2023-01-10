@@ -20,43 +20,43 @@
     </div>
     <ul class="nav-links">
       <li>
-        <a href="dashboard.html">
+        <a href="{{url_for('dashboard')}}">
           <i class='bx bxs-dashboard'></i>
           <span class="links_name">Dashboard</span>
         </a>
       </li>
       <li>
-        <a href="user.html">
+        <a href="{{url_for('dashboardUser')}}">
           <i class='bx bxs-user'></i>
           <span class="links_name">Tabel User</span>
         </a>
       </li>
       <li>
-        <a href="reservasi.html">
+        <a href="{{url_for('dashboardReservasi')}}">
           <i class='bx bxs-receipt'></i>
           <span class="links_name">Tabel Record Reservasi</span>
         </a>
       </li>
       <li>
-        <a href="menu.html">
+        <a href="{{url_for('dashboard')}}">
           <i class='bx bxs-food-menu' ></i>
           <span class="links_name">Tabel Menu</span>
         </a>
       </li>
       <li>
-        <a href="promo.html">
+        <a href="{{url_for('dashboardPromo')}}">
           <i class='bx bxs-discount'></i>
           <span class="links_name">Tabel Promo</span>
         </a>
       </li>
       <li>
-        <a href="meja.html" class="active">
+        <a href="#" class="active">
           <i class='bx bxs-chalkboard'></i>
           <span class="links_name">Tabel Meja</span>
         </a>
       </li>
       <li class="log_out">
-        <a href="../index.html">
+        <a href="{{url_for('index')}}">
           <i class='bx bx-log-out'></i>
           <span class="links_name">Kembali</span>
         </a>
@@ -101,7 +101,7 @@
                     <td>{{item[1]}}</td>
                     <td>
                       <!-- <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#update"><i class='bx bx-plus-medical' ></i> Update</button> -->
-                      <a href="meja_update.html" class="btn btn-warning" role="button"><i class='bx bxs-edit'></i> Update</a>
+                      <a href="/updateMeja/{{item[0]}}" class="btn btn-warning" role="button"><i class='bx bxs-edit'></i> Update</a>
                       <a href="/deleteMeja/{{item[0]}}" class="btn btn-danger" role="button"><i class='bx bxs-trash-alt'></i> Delete</a>
                     </td>
                   </tr>

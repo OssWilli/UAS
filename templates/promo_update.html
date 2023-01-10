@@ -84,7 +84,7 @@
         <div class="card-body">
           <h5 class="card-title mt-4 mb-4" style="text-align: center;">Update Data Promo</h5>
           <hr>
-          <form action="">
+          <form action="/updatePromo/{{data[0]}}" method="post">
            <div class="form-group">
             <label for="">Menu</label>
             <select class="form-control col-md-2" name="promo" id="" type="text" disabled>
@@ -94,16 +94,16 @@
           </div>
           <div class="form-group">
             <label for="">Harga Awal</label>
-            <input type="number" name="" class="form-control" value="{{data[2]}}" placeholder="Masukan Harga Awal" disabled required/>
+            <input type="number" name="harga_awal" class="form-control" value="{{data[2]}}" placeholder="Masukan Harga Awal" disabled required/>
           </div>
           <div class="form-group">
             <label for="">Harga Promo</label>
-            <input type="number" name="" class="form-control" value="{{data[3]}}" placeholder="Masukan Harga Promo" min="0" required/>
+            <input type="number" name="harga_akhir" class="form-control" value="{{data[3]}}" min="0" {{disabled}} required/>
           </div>
           <div class="form-row">
-            <button type="submit" name="submit" class="btn btn-primary mr-2">Submit</button>
+            <button type="submit" name="submit" class="btn btn-primary mr-2" {{disabled}}>Submit</button>
           </form>
-          <a href="promo.html" class="btn btn-secondary" role="button">Cancel</a>
+          <a href="{{url_for('dashboardPromo')}}" class="btn btn-secondary" role="button">Back</a>
         </div>
       </div>
     </div>

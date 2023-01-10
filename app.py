@@ -9,7 +9,7 @@ def getMysqlConnection():
 
 @app.route('/')
 def index():
-   return 'Hello, World!'
+   return render_template('index.html', hidden="hidden")
 
 def getData(sqlstr):
        db = getMysqlConnection()
@@ -39,6 +39,16 @@ def getOneData(sqlstr):
        string_data = cur.fetchone()[0]
        return string_data
 
+def getUpdateData(sqlstr, cur):
+       cur.execute(sqlstr)
+       data = cur.fetchone()
+       return data
+
+# DASHBOARD
+@app.route('/dashboard', methods=['GET', 'POST'])
+def dashboard():
+       return render_template('dashboard.html')
+
 # DATABASE USER
 @app.route('/dashboardUser')
 def dashboardUser():
@@ -54,11 +64,12 @@ def deleteUser(id):
 
 @app.route('/updateUser/<int:id>', methods=['GET','POST'])
 def updateUser(id):
-       strid = str(id)
        
        db = getMysqlConnection()
        cur = db.cursor()
        strid = str(id)
+
+       data = getUpdateData(f"SELECT * FROM user WHERE id_user ='{strid}'", cur)
 
        if request.method == 'POST':
              username = request.form['username']
@@ -68,7 +79,12 @@ def updateUser(id):
              db.commit()
              cur.close()
              db.close()
-             return redirect(url_for('dashboardUser'))
+             return render_template('user_update.html', data=data, disabled='disabled')
+       
+       else :
+             cur.close()
+             db.close()
+             return render_template('user_update.html', data=data, disabled='') 
 
 # DATABASE RESERVASI
 @app.route('/dashboardReservasi')
@@ -88,12 +104,10 @@ def deleteReservasi(id):
 def updateReservasi(id):
        db = getMysqlConnection()
        cur = db.cursor()
+
+       data = getUpdateData(f"SELECT * FROM reservasi WHERE id_pemesanan='{id}'", cur)
+       data_meja = getData(f"SELECT * FROM meja")
        strid = str(id)
-
-       sqlstr = "SELECT * FROM reservasi WHERE id_pemesanan='"+id+"'"
-       cur.execute(sqlstr)
-       data = cur.fetchone()
-
        if request.method == 'POST':
              nama = request.form['nama']
              email = request.form['email']
@@ -104,16 +118,20 @@ def updateReservasi(id):
              meja = request.form['meja']
              layanan = request.form['layanan']
              status = request.form['status']
-             sqlstr = "UPDATE `reservasi` SET `nama` = '"+nama+"', `email` = '"+email+"', `telepon` = '"+telepon+"', `jml_tamu` = '"+jml_tamu+"', `tanggal` = '"+tanggal+"', `jam` = '"+jam+"', `meja` = '"+meja+"', `layanan` = '"+layanan+"', `status` = '"+status+"' WHERE `reservasi`.`id_pemesanan` = '"+strid+"';"
+
+             separate_meja = meja.split(',')
+             strmeja = separate_meja[0]
+             keterangan_meja = separate_meja[1]
+             sqlstr = "UPDATE `reservasi` SET `nama` = '"+nama+"', `email` = '"+email+"', `telp` = '"+telepon+"', `jum_tamu` = '"+jml_tamu+"', `tanggal` = '"+tanggal+"', `jam` = '"+jam+"', `meja_no` = '"+strmeja+"', `ket_meja` = '"+keterangan_meja+"', `tambahan` = '"+layanan+"', `status` = '"+status+"' WHERE `reservasi`.`id_pemesanan` = '"+strid+"'"
              cur.execute(sqlstr)
              db.commit()
              cur.close()
              db.close()
-             return render_template('reservasi_update.html', data=data, disabled='') 
+             return render_template('reservasi_update.html', data=data, data_meja=data_meja, disabled='disabled') 
        else:
              cur.close()
              db.close()
-             return render_template('reservasi_update.html', data=data, disabled='') 
+             return render_template('reservasi_update.html', data=data, data_meja=data_meja, disabled='') 
 
 
 # DATABASE MEJA
@@ -136,6 +154,27 @@ def deleteMeja(id):
        idString = str(id)
        sqlstr = "DELETE FROM meja WHERE no_meja="+idString+""
        return deleteData(sqlstr, value)
+
+@app.route('/updateMeja/<int:id>', methods=['GET','POST'])
+def updateMeja(id):
+       db = getMysqlConnection()
+       cur = db.cursor()
+
+       data = getUpdateData(f"SELECT * FROM meja WHERE no_meja ='{id}'", cur)
+
+       if request.method == 'POST':
+             no_meja = request.form['no_meja']
+             keterangan = request.form['keterangan']
+             sqlstr = f"UPDATE `meja` SET `no_meja` = '{no_meja}', `keterangan` = '{keterangan}' WHERE `meja`.`no_meja` = {id}"
+             cur.execute(sqlstr)
+             db.commit()
+             cur.close()
+             db.close()
+             return render_template('meja_update.html', data=data, disabled='disabled') 
+       else:
+             cur.close()
+             db.close()
+             return render_template('meja_update.html', data=data, disabled='') 
 
 # DATABASE PROMO
 @app.route('/dashboardPromo')
@@ -172,28 +211,17 @@ def deletePromo(id):
 def updatePromo(id):
        db = getMysqlConnection()
        cur = db.cursor()
-       strid = str(id)
 
-       sqlstr = "SELECT * FROM promo WHERE id_promo='"+strid+"'"
-       cur.execute(sqlstr)
-       data = cur.fetchone()
+       data = getUpdateData(f"SELECT * FROM promo WHERE id_promo='{id}'", cur)
 
        if request.method == 'POST':
-             nama = request.form['nama']
-             email = request.form['email']
-             telepon = request.form['telepon']
-             jml_tamu = request.form['jml_tamu']
-             tanggal = request.form['tanggal']
-             jam = request.form['jam']
-             meja = request.form['meja']
-             layanan = request.form['layanan']
-             status = request.form['status']
-             sqlstr = "UPDATE `reservasi` SET `nama` = '"+nama+"', `email` = '"+email+"', `telepon` = '"+telepon+"', `jml_tamu` = '"+jml_tamu+"', `tanggal` = '"+tanggal+"', `jam` = '"+jam+"', `meja` = '"+meja+"', `layanan` = '"+layanan+"', `status` = '"+status+"' WHERE `reservasi`.`id_pemesanan` = '"+strid+"';"
+             harga_akhir = request.form['harga_akhir']
+             sqlstr = f"UPDATE `promo` SET `harga_promo` = '{harga_akhir}' WHERE `promo`.`id_promo` = {id}"
              cur.execute(sqlstr)
              db.commit()
              cur.close()
              db.close()
-             return render_template('promo_update.html', data=data, disabled='') 
+             return render_template('promo_update.html', data=data, disabled='disabled') 
        else:
              cur.close()
              db.close()
