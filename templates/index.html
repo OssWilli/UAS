@@ -32,22 +32,22 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link mr-4" href="index.html">HOME</a>
+          <a class="nav-link mr-4" href="{{url_for('index')}}">HOME</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link mr-4" href="daftar_menu.html">DAFTAR MENU</a>
+          <a class="nav-link mr-4" href="{{url_for('daftar_menu')}}">DAFTAR MENU</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link mr-4" href="promo.html">PROMO</a>
+          <a class="nav-link mr-4" href="{{url_for('promo')}}" >PROMO</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link mr-4" href="antrian.html">ANTRIAN</a>
+          <a class="nav-link mr-4" href="/antrian/{{id_session}}" {{hidden_logout}}>ANTRIAN</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link mr-4" href="{{url_for('login')}}">LOGIN</a>
+          <a class="nav-link mr-4" href="{{url_for('login')}}" {{hidden_login}}>LOGIN</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link mr-4" href="#" {{hidden}}>LOGOUT</a>
+          <a class="nav-link mr-4" href="{{url_for('logout')}}" {{hidden_logout}}>LOGOUT</a>
         </li>
       </ul>
     </div>
@@ -68,7 +68,7 @@
             <div class="card bg-dark text-white border-light">
               <img src="../static/img/menu2.jpg" class="card-img" alt="Lihat Daftar Menu">
               <div class="card-img-overlay mt-5 text-center">
-               <a href="daftar_menu.html" class="btn btn-primary">LIHAT DAFTAR MENU</a>
+               <a href="{{url_for('daftar_menu')}}" class="btn btn-primary">LIHAT DAFTAR MENU</a>
               </div>
             </div>
           </div>
@@ -77,7 +77,7 @@
             <div class="card bg-dark text-white border-light">
               <img src="../static/img/menu3.jpg" class="card-img" alt="Lihat Pesanan">
               <div class="card-img-overlay mt-5 text-center">
-               <a href="PROMO.html" class="btn btn-primary">LIHAT PROMO</a>
+               <a href="{{url_for('promo')}}" class="btn btn-primary">LIHAT PROMO</a>
               </div>
             </div>
           </div>

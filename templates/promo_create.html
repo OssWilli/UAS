@@ -99,6 +99,12 @@
             <input type="number" name="harga_akhir" class="form-control" placeholder="Masukan Harga Promo" min="0" required/>
           </div>
           <div class="form-row">
+            <div class="form-group col-md-2">
+              <label for="">Tanggal</label>
+              <input type="date" name="tanggal" class="form-control" value="" placeholder="Masukan Tanggal" required/>
+            </div>
+          </div>
+          <div class="form-row">
             <button type="submit" name="submit" class="btn btn-primary mr-2">Submit</button>
           </form>
           <a href="{{url_for('dashboardPromo')}}" class="btn btn-secondary" role="button">Cancel</a>
