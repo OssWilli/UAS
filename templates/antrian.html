@@ -34,7 +34,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link mr-4" href="{{url_for('antrian')}}">HOME</a>
+              <a class="nav-link mr-4" href="{{url_for('index')}}">HOME</a>
             </li>
             <li class="nav-item">
               <a class="nav-link mr-4" href="{{url_for('daftar_menu')}}">DAFTAR MENU</a>
@@ -43,10 +43,10 @@
               <a class="nav-link mr-4" href="{{url_for('promo')}}">PROMO</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mr-4" href="{{url_for('antrian')}}">ANTRIAN</a>
+              <a class="nav-link mr-4" href="#">ANTRIAN</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mr-4" href="{{url_for('index')}}">LOGOUT</a>
+              <a class="nav-link mr-4" href="{{url_for('logout')}}">LOGOUT</a>
             </li>
           </ul>
         </div>
@@ -59,7 +59,7 @@
       <div class="judul-pesanan mt-5
       \">
        
-        <h3 class="text-center font-weight-bold">List Antrian</h3>
+        <h3 class="text-center font-weight-bold">Riwayat Reservasi [{{username}}]</h3>
         
       </div>
       <table class="table table-bordered" id="example">
@@ -72,66 +72,14 @@
           </tr>
         </thead>
         <tbody>
+          {% for item in data %}
           <tr>
-            <th scope="row">1</th>
-            <td>Bagong</td>
-            <td>18/01/2023</td>
-            <td>01</td>
+            <th scope="row">{{loop.index}}</th>
+            <td>{{item[1]}}</td>
+            <td>{{item[5]}}</td>
+            <td>{{item[9]}}</td>
           </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Subekti</td>
-            <td>18/01/2023</td>
-            <td>02</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Wakwaw</td>
-            <td>18/01/2023</td>
-            <td>03</td>
-          </tr>
-          <tr>
-            <th scope="row">4</th>
-            <td>Bambang</td>
-            <td>18/01/2023</td>
-            <td>04</td>
-          </tr>
-          <tr>
-            <th scope="row">5</th>
-            <td>Herman</td>
-            <td>18/01/2023</td>
-            <td>05</td>
-          </tr>
-          <tr>
-            <th scope="row">6</th>
-            <td>Dino</td>
-            <td>18/01/2023</td>
-            <td>06</td>
-          </tr>
-          <tr>
-            <th scope="row">7</th>
-            <td>Maman</td>
-            <td>18/01/2023</td>
-            <td>07</td>
-          </tr>
-          <tr>
-            <th scope="row">8</th>
-            <td>Lesti</td>
-            <td>18/01/2023</td>
-            <td>08</td>
-          </tr>
-          <tr>
-            <th scope="row">9</th>
-            <td>Riski</td>
-            <td>18/01/2023</td>
-            <td>09</td>
-          </tr>
-          <tr>
-            <th scope="row">10</th>
-            <td>Billar</td>
-            <td>18/01/2023</td>
-            <td>10</td>
-          </tr>
+          {%endfor%}
         </tbody>
       </table>
     </div>

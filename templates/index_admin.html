@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/index.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/index.css">
     <link rel="stylesheet" type="text/css" href="fontawesome/css/all.min.css">
 
     <title>MIE AYAM BANG WILLI</title>
@@ -39,13 +39,13 @@
               <a class="nav-link mr-4" href="{{url_for('daftar_menu')}}">DAFTAR MENU</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mr-4" href="{{url_for('daftar_pesanan')}}">PESANAN</a>
+              <a class="nav-link mr-4" href="{{url_for('daftar_pesanan')}}">DATA RESERVASI</a>
             </li>
             <li class="nav-item">
               <a class="nav-link mr-4" href="{{url_for('promo')}}">PROMO</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mr-4" href="{{url_for('index')}}">LOGOUT</a>
+              <a class="nav-link mr-4" href="/logout" {{hidden_logout}}>LOGOUT</a>
             </li>
           </ul>
         </div>
@@ -64,7 +64,7 @@
         <div class="row mb-5 mt-5 ">
           <div class="col-md-6 d-flex justify-content-end">
             <div class="card bg-dark text-white border-light">
-              <img src="../assets/img/menu2.jpg" class="card-img" alt="Lihat Daftar Menu">
+              <img src="../static/img/menu2.jpg" class="card-img" alt="Lihat Daftar Menu">
               <div class="card-img-overlay mt-5 text-center">
                <a href="daftar_menu.html" class="btn btn-primary">LIHAT DAFTAR MENU</a>
               </div>
@@ -73,7 +73,7 @@
 
           <div class="col-md-6 d-flex justify-content-start">
             <div class="card bg-dark text-white border-light">
-              <img src="../assets/img/menu3.jpg" class="card-img" alt="Lihat Pesanan">
+              <img src="../static/img/menu3.jpg" class="card-img" alt="Lihat Pesanan">
               <div class="card-img-overlay mt-5 text-center">
                <a href="pesanan.html" class="btn btn-primary">LIHAT PESANAN</a>
               </div>
@@ -96,9 +96,9 @@
           <div class="col-md-6 d-flex justify-content-end">
           <div class="icon-contact">
           <label class="font-weight-bold">Follow Us </label>
-          <a href="#"><img src="../assets/img/icon/fb.png" class="mr-3 ml-4" data-toggle="tooltip" title="Facebook"></a>
-          <a href="#"><img src="../assets/img/icon/ig.png" class="mr-3" data-toggle="tooltip" title="Instagram"></a>
-          <a href="#"><img src="../assets/img/icon/twitter.png" class="" data-toggle="tooltip" title="Twitter"></a>
+          <a href="#"><img src="../static/img/fb.png" class="mr-3 ml-4" data-toggle="tooltip" title="Facebook"></a>
+          <a href="#"><img src="../static/img/ig.png" class="mr-3" data-toggle="tooltip" title="Instagram"></a>
+          <a href="#"><img src="../static/img/twitter.png" class="" data-toggle="tooltip" title="Twitter"></a>
         </div>
           </div>
         </div>

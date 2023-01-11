@@ -33,32 +33,32 @@
 		</div>
 
 		<div class="container-form">
-				<form action="#">
+				<form action="/userReservasi" method="post">
 					<h2 class="heading heading-yellow">Reservation Online</h2>
 
 					<div class="form-field">
 						<p>Nama</p>
-						<input type="text" placeholder="Nama Lengkap">
+						<input type="text" name="nama" placeholder="Nama Lengkap">
 					</div>
 					<div class="form-field">
 						<p>Email</p>
-						<input type="email" placeholder="Alamat Email">
+						<input type="email" name="email" placeholder="Alamat Email">
 					</div>
                     <div class="form-field">
 						<p>Telepon </p>
-						<input type="Telepon" placeholder="Nomor Telepon">
+						<input type="Telepon" name="telepon" placeholder="Nomor Telepon">
 					</div>
 					<div class="form-field">
 						<p>Tanggal Datang</p>
-						<input type="date">
+						<input type="date" name="tanggal">
 					</div>
 					<div class="form-field">
 						<p>Jam Datang</p>
-						<input type="time">
+						<input type="time" name="jam">
 					</div>
 					<div class="form-field">
 						<p>Jumlah Tamu</p>
-						<select name="select" id="#">
+						<select class="form-control col-md-2" name="jml_tamu" id="" type="text">
 							<option value="1">1</option>
 							<option value="2">2</option>
 							<option value="3">3</option>
@@ -67,21 +67,22 @@
 					</div>
                     <div class="form-field">
 						<p>Pilih Meja</p>
-						<select name="select" id="#">
-							<option value="indoor">Indoor</option>
-							<option value="outdoor">Outdoor</option>
-						</select>
+						<select class="form-control col-md-2" name="meja" id="" type="text">
+							{%for datameja in data_meja%}
+							<option value="{{datameja[0]}},{{datameja[1]}}">{{datameja[0]}} - {{datameja[1]}}</option>
+							{%endfor%}
+						  </select>
 					</div>
                     <div class="form-field">
 						<p>Permintaan Khusus </p>
-						<input type="Telepon" placeholder="(Optional)">
+						<input type="Telepon" placeholder="(Optional)" name="layanan">
 					</div>
 
 					<!-- HIDDEN, USER OTOMATIS PENDING -->
 					<div class="form-group" hidden>            
 						<label for="">Status</label>
 						<!-- Opsi menggunakan select -->
-						<select class="form-control col-md-2" name="status" id="" type="text"  {{disabled}}>
+						<select class="form-control col-md-2" name="status" id="" type="text">
 						  <option selected value="Pending">Pending</option>
 						</select>
 						<!-- Opsi menggunakan radio button -->
@@ -98,7 +99,7 @@
 						  </label> -->
 						</div>
 					  </div>
-					<button class="btn">Booking Now!</button>
+					<button class="btn submit">Booking Now!</button>
 				</form>
 		</div>
 	</div>
