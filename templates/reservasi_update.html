@@ -83,7 +83,7 @@
           <h5 class="card-title mt-4 mb-4" style="text-align: center;">Update Data Reservasi</h5>
           <hr>
           {% for dataReservasi in data %}
-          <form action="/updateReservasi/{{dataReservasi['id_pemesanan']}}" method="post">
+          <form action="" method="post">
            <div class="form-group">
             <label for="">Nama</label>
             <input type="text" name="nama" class="form-control" value="{{dataReservasi['nama']}}" placeholder="Masukan Nama" {{disabled}} required/>

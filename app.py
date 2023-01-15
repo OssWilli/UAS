@@ -270,17 +270,12 @@ def updateReservasi(id):
        elif not 'loggedin' in session:
               return redirect(url_for('index'))
 
-       db = getMysqlConnection()
-       cur = db.cursor()
-
-       # data = getUpdateData(f"SELECT * FROM reservasi WHERE id_pemesanan='{id}'", cur)
-
        r_Reservasi = requests.get(APIurl + "getReservasiById/{}".format(id))
        data = r_Reservasi.json()['data_reservasi']
-       # data_meja = getData(f"SELECT * FROM meja")
+
        r_Meja = requests.get(APIurl + "getMeja")
        data_meja = r_Meja.json()['data_meja']
-       # strid = str(id)
+
        if request.method == 'POST':
              nama = request.form['nama']
              email = request.form['email']
@@ -295,31 +290,32 @@ def updateReservasi(id):
              separate_meja = meja.split(',')
              strmeja = separate_meja[0]
              keterangan_meja = separate_meja[1]
+             
+             id_user = requests.get(APIurl + "getUserByIdReservasi/{}".format(id))
+             id_user = id_user.json()['data_reservasi']
+             id_user = id_user[0]['id_user']
 
              dataUpdate = {
                      "id_pemesanan": id,
                      "nama": nama,
                      "email": email,
-                     "telepon": telepon,
-                     "jumlah_tamu": jml_tamu,
+                     "telp": telepon,
+                     "jum_tamu": jml_tamu,
                      "tanggal": tanggal,
                      "jam": jam,
                      "tambahan": layanan,
-                     "status": status,
-                     "no_meja": strmeja,
+                     "id_user": id_user,
+                     "meja_no": strmeja,
                      "ket_meja": keterangan_meja,
+                     "status": status
              }
+             
+             url = APIurl + "updateReservasi/{}".format(id)
 
-             requests.post(APIurl + "updateReservasi/{}".format(id), json=dataUpdate)
-       #       sqlstr = "UPDATE `reservasi` SET `nama` = '"+nama+"', `email` = '"+email+"', `telp` = '"+telepon+"', `jum_tamu` = '"+jml_tamu+"', `tanggal` = '"+tanggal+"', `jam` = '"+jam+"', `meja_no` = '"+strmeja+"', `ket_meja` = '"+keterangan_meja+"', `tambahan` = '"+layanan+"', `status` = '"+status+"' WHERE `reservasi`.`id_pemesanan` = '"+strid+"'"
-       #       cur.execute(sqlstr)
-       #       db.commit()
-       #       cur.close()
-       #       db.close()
+             requests.post(url=url, json=dataUpdate)
+
              return render_template('reservasi_update.html', data=data, data_meja=data_meja, disabled='disabled') 
        else:
-             cur.close()
-             db.close()
              return render_template('reservasi_update.html', data=data, data_meja=data_meja, disabled='') 
 
 

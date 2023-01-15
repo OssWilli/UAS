@@ -155,6 +155,23 @@ def getReservasiById(id_user: int):
 
     return content
 
+@app.get("/api/getUserByIdReservasi/{id_pemesanan}")
+def getUserByIdReservasi(id_pemesanan: int):
+    content = {}
+    content["data_reservasi"] = []
+    data = getOneData(
+        "SELECT id_user FROM reservasi WHERE id_pemesanan='{}'".format(id_pemesanan)
+    )
+
+
+    content["data_reservasi"].append(
+        {
+            "id_user": data[0],
+        }
+    )
+
+    return content
+
 @app.get("/api/getReservasiByStatus/{status}")
 def getReservasiById(status: str):
     content = {}
