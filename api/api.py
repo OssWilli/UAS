@@ -271,19 +271,3 @@ def deletePromo(id):
     execute("DELETE FROM promo WHERE id_promo='{}'".format(id))
 
     return {"message": "success"}
-
-
-# API MEJA
-
-
-# API DAFTAR MENU
-@app.get("/api/get")
-async def get_():
-
-    return {}
-
-# API USER
-@app.get("/api/get")
-async def get_():
-
-    return {}
