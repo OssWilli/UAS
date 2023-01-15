@@ -271,3 +271,85 @@ def deletePromo(id):
     execute("DELETE FROM promo WHERE id_promo='{}'".format(id))
 
     return {"message": "success"}
+
+
+# API MEJA
+@app.get("/api/getMeja")
+async def getMeja():
+    content = {}
+    content["data_meja"] = []
+    data = getData("SELECT * FROM meja")
+
+    for i in data:
+
+        content["data_meja"].append(
+            {
+                "no_meja": i[0],
+                "keterangan": i[1],
+                "status_meja": i[2]
+            }
+        )
+
+    return content
+
+
+@app.get("/api/getMejaById/{no_meja}")
+async def getMejaById(no_meja: int):
+    content = {}
+    content["data_meja"] = []
+    data = getData(
+        "SELECT * FROM meja WHERE no_meja='{}'".format(no_meja)
+    )
+
+    for i in data:
+
+        content["data_meja"].append(
+            {
+                "no_meja": i[0],
+                "keterangan": i[1],
+                "status_meja": i[2]
+            }
+        )
+
+    return content
+
+
+@app.post("/api/createMeja/")
+async def createMeja(meja: Meja):
+    insertQuery = """
+    INSERT INTO meja(no_meja, keterangan, status_meja) VALUES ('{0}','{1}','{2}')
+    """
+    execute(
+        insertQuery.format(
+            meja.no_meja,
+            meja.keterangan,
+            meja.status_meja
+        )
+    )
+
+    return {"message": "success"}
+
+
+@app.post("/api/updateMeja/{no_meja}")
+async def updateMeja(no_meja: int, meja: Meja):
+    updateQuery = """
+    UPDATE meja SET 
+    no_meja = '{0}', keterangan = '{1}', status_meja = '{2}' WHERE meja.no_meja = {3}
+    """
+    execute(
+        updateQuery.format(
+            meja.no_meja,
+            meja.keterangan,
+            meja.status_meja,
+            no_meja
+        )
+    )
+
+    return {"message": "success"}
+
+
+@app.delete("/api/deleteMeja/{no_meja}")
+def deleteMeja(no_meja):
+    execute("DELETE FROM meja WHERE no_meja='{}'".format(no_meja))
+
+    return {"message": "success"}
