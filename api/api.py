@@ -51,6 +51,13 @@ class DaftarMenu(BaseModel):
     harga: int
     path: str
 
+class Update(BaseModel):
+    tabel: str
+    fieldStatus: str
+    status: str
+    fieldKondisi: str
+    kondisi: str
+
 # INDEX API
 @app.get("/api/")
 def index():
@@ -93,29 +100,28 @@ def getReservasi():
 def getReservasiById(id_pemesanan: int):
     content = {}
     content["data_reservasi"] = []
-    data = getData(
+    data = getOneData(
         "SELECT * FROM reservasi WHERE id_pemesanan='{}'".format(id_pemesanan)
     )
 
-    for i in data:
-        jam = convert_timedelta(i[6])
+    jam = convert_timedelta(data[6])
 
-        content["data_reservasi"].append(
-            {
-                "id_pemesanan": i[0],
-                "nama": i[1],
-                "email": i[2],
-                "telepon": i[3],
-                "jumlah_tamu": i[4],
-                "tanggal": i[5],
-                "jam": jam,
-                "tambahan": i[7],
-                "id_user": i[8],
-                "no_meja": i[9],
-                "ket_meja": i[10],
-                "status": i[11],
-            }
-        )
+    content["data_reservasi"].append(
+        {
+            "nama": data[1],
+            "id_pemesanan": data[0],
+            "email": data[2],
+            "telepon": data[3],
+            "jumlah_tamu": data[4],
+            "tanggal": data[5],
+            "jam": jam,
+            "tambahan": data[7],
+            "id_user": data[8],
+            "no_meja": data[9],
+            "ket_meja": data[10],
+            "status": data[11],
+        }
+    )
 
     return content
 
@@ -173,7 +179,7 @@ def getReservasiById(status: str):
                 "id_user": i[8],
                 "no_meja": i[9],
                 "ket_meja": i[10],
-                "status": i[11],
+                "status": i[11]
             }
         )
 
@@ -248,6 +254,26 @@ def getPromo():
     content = {}
     content["data_promo"] = []
     data = getData("SELECT * FROM promo")
+
+    for i in data:
+
+        content["data_promo"].append(
+            {
+                "id_promo": i[0],
+                "menu": i[1],
+                "harga_awal": i[2],
+                "harga_promo": i[3],
+                "tanggal": i[4]
+            }
+        )
+
+    return content
+
+@app.get("/api/getCurrentPromo")
+def getCurrentPromo():
+    content = {}
+    content["data_promo"] = []
+    data = getData("SELECT * FROM promo WHERE tanggal >= CURDATE()")
 
     for i in data:
 
@@ -369,6 +395,20 @@ def getMejaById(no_meja: int):
                 "status_meja": i[2]
             }
         )
+
+    return content
+
+@app.get("/api/getMejaNoById/{id_pemesanan}")
+def getMejaNoById(id_pemesanan: int):
+    content = {}
+    content["data_meja"] = []
+    data = getOneData("SELECT meja_no FROM reservasi WHERE id_pemesanan='{}'".format(id_pemesanan))
+
+    content["data_meja"].append(
+        {
+            "no_meja": data[0]
+        }
+    )
 
     return content
 
@@ -578,3 +618,21 @@ def deleteMeja(id):
 
     return {"message": "success"}
 
+
+# API UPDATE ANY
+@app.post("/api/updateAny/{id}")
+def updateAny(update: Update):
+    updateQuery = """
+        UPDATE {0} SET {1}= '{2}' WHERE {3} = '{4}'
+        """
+    execute(
+        updateQuery.format(
+            update.tabel,
+            update.fieldStatus,
+            update.status,
+            update.fieldKondisi,
+            update.kondisi,
+        )
+    )
+
+    return {"message": "success"}

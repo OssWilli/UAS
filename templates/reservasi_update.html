@@ -82,34 +82,35 @@
         <div class="card-body">
           <h5 class="card-title mt-4 mb-4" style="text-align: center;">Update Data Reservasi</h5>
           <hr>
-          <form action="/updateReservasi/{{data[0]}}" method="post">
+          {% for dataReservasi in data %}
+          <form action="/updateReservasi/{{dataReservasi['id_pemesanan']}}" method="post">
            <div class="form-group">
             <label for="">Nama</label>
-            <input type="text" name="nama" class="form-control" value="{{data[1]}}" placeholder="Masukan Nama" {{disabled}} required/>
+            <input type="text" name="nama" class="form-control" value="{{dataReservasi['nama']}}" placeholder="Masukan Nama" {{disabled}} required/>
           </div>
           <div class="form-group">
             <label for="">Email</label>
-            <input type="text" name="email" class="form-control" value="{{data[2]}}" placeholder="Masukan Email" {{disabled}} required/>
+            <input type="text" name="email" class="form-control" value="{{dataReservasi['email']}}" placeholder="Masukan Email" {{disabled}} required/>
           </div>
           <div class="form-group">
             <label for="">Nomor Telepon</label>
-            <input type="number" name="telepon" class="form-control" value="{{data[3]}}" placeholder="Masukan Nomor Telepon" min="0" {{disabled}} required/>
+            <input type="number" name="telepon" class="form-control" value="{{dataReservasi['telepon']}}" placeholder="Masukan Nomor Telepon" min="0" {{disabled}} required/>
           </div>
 
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="">Tanggal</label>
-              <input type="date" name="tanggal" class="form-control" value="{{data[5]}}" placeholder="Masukan Tanggal" {{disabled}} required/>
+              <input type="date" name="tanggal" class="form-control" value="{{dataReservasi['tanggal']}}" placeholder="Masukan Tanggal" {{disabled}} required/>
             </div>
             <div class="form-group col-md-6">
               <label for="">Jam Datang</label>
-              <input type="text" name="jam" class="form-control" value="{{data[6]}}" placeholder="Masukan Jam Datang" {{disabled}} required/>
+              <input type="text" name="jam" class="form-control" value="{{dataReservasi['jam']}}" placeholder="Masukan Jam Datang" {{disabled}} required/>
             </div>
           </div>
           <div class="form-group">
             <label for="">Jumlah Tamu</label>
             <select class="form-control col-md-2" name="jml_tamu" id="" type="text" {{disabled}}>
-              <option selected="selected" value="{{data[4]}}">{{data[4]}}</option>
+              <option selected="selected" value="{{dataReservasi['jumlah_tamu']}}">{{dataReservasi['jumlah_tamu']}}</option>
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -121,21 +122,21 @@
             <label for="">Nomor Meja</label>
             <!-- Opsi menggunakan select -->
             <select class="form-control col-md-2" name="meja" id="" type="text" {{disabled}}>
-              <option value="{{data[9]}},{{data[10]}}" selected>{{data[9]}} - {{data[10]}}</option>
+              <option value="{{dataReservasi['no_meja']}},{{dataReservasi['ket_meja']}}" selected>{{dataReservasi['no_meja']}} - {{dataReservasi['ket_meja']}}</option>
               {%for datameja in data_meja%}
-              <option value="{{datameja[0]}},{{datameja[1]}}">{{datameja[0]}} - {{datameja[1]}}</option>
+              <option value="{{datameja['no_meja']}},{{datameja['keterangan']}}">{{datameja['no_meja']}} - {{datameja['keterangan']}}</option>
               {%endfor%}
             </select>
           </div>
           <div class="form-group">
             <label for="">Layanan Tambahan</label>
-            <textarea class="form-control" name="layanan" placeholder="Masukan Layanan Tambahan" rows="3" {{disabled}}>{{data[7]}}</textarea>
+            <textarea class="form-control" name="layanan" placeholder="Masukan Layanan Tambahan" rows="3" {{disabled}}>{{dataReservasi['tambahan']}}</textarea>
           </div>
           <div class="form-group">            
             <label for="">Status</label>
             <!-- Opsi menggunakan select -->
             <select class="form-control col-md-2" name="status" id="" type="text" {{disabled}}>
-              <option value="{{data[11]}}">{{data[11]}}</option>
+              <option value="{{dataReservasi['status']}}">{{dataReservasi['status']}}</option>
               <option value="Pending">Pending</option>
               <option value="Selesai">Selesai</option>
             </select>
@@ -156,6 +157,7 @@
           <div class="form-row">
             <button type="submit" name="submit" class="btn btn-primary ml-3 mr-2" {{disabled}}>Submit</button>
           </form>
+          {% endfor %}
           <a class="btn btn-secondary" href="{{url_for('dashboardReservasi')}}" role="button" {{disabled}}>Back</a>
         </div>
       </div>

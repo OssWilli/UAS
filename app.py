@@ -81,7 +81,7 @@ def antrian(id):
        username = session['username']
        return render_template('antrian.html', data=data, username=username)
 
-@app.route('/daftarMenu')
+@app.route('/daftarMenu') 
 def daftar_menu():
        hidden_logout = hidden
 
@@ -102,16 +102,31 @@ def daftar_pesanan():
 def deletePesanan(id):
        route = 'daftar_pesanan'
 
-       db = getMysqlConnection()
-       cur = db.cursor()
+       dataReservasiUpdate = {
+              "tabel":"reservasi",
+              "fieldStatus": "status",
+              "status":"Selesai",
+              "fieldKondisi":"reservasi.id_pemesanan",
+              "kondisi":id
+       }
 
-       data = getOneData(f"SELECT meja_no FROM reservasi WHERE id_pemesanan = {id} ")
+       requests.post(APIurl + "updateAny/{}".format(id), json=dataReservasiUpdate)
+       
+       r = requests.get(APIurl + "getMejaNoById/{}".format(id))
+       data=r.json()['data_meja']
 
-       sqlstr = f"UPDATE `reservasi` SET `status` = 'Selesai' WHERE `reservasi`.`id_pemesanan` = {id}"
-       editmeja = f"UPDATE `meja` SET `status_meja` = 'Kosong' WHERE `meja`.`no_meja` = {data};"
-       cur.execute(editmeja)
-       db.commit()
-       return deleteData(sqlstr, route)
+       for i in data:
+              dataMejaUpdate = {
+                     "tabel":"meja",
+                     "fieldStatus": "status_meja",
+                     "status":"Kosong",
+                     "fieldKondisi":"meja.no_meja",
+                     "kondisi":i['no_meja']
+              }
+       
+       requests.post(APIurl + "updateAny/{}".format(id),json=dataMejaUpdate)
+
+       return redirect(url_for(f"{route}"))
        
 
 
@@ -128,7 +143,9 @@ def promo():
               hidden_logout = tampil
               hidden_jika_admin = tampil
 
-       data = getData("SELECT * FROM promo WHERE tanggal >= CURDATE()")
+       r = requests.get(APIurl + "getCurrentPromo")
+       data = r.json()['data_promo']
+
        return render_template('promo_landing.html', data = data, hidden_logout=hidden_logout, hidden_jika_admin=hidden_jika_admin, id_session=id_session)
 
 # DASHBOARD
@@ -224,8 +241,9 @@ def dashboardReservasi():
        elif not 'loggedin' in session:
               return redirect(url_for('index'))
 
-       data = getData("SELECT * from reservasi")
-       # data = getData("SELECT * from reservasi where status='Selesai' ")
+       r = requests.get(APIurl + "getReservasi")
+       data = r.json()['data_reservasi']
+
        return render_template('reservasi.html', data=data)
 
 @app.route('/deleteReservasi/<int:id>')
@@ -238,9 +256,9 @@ def deleteReservasi(id):
               return redirect(url_for('index'))
 
        route = 'dashboardReservasi'
-       idString = str(id)
-       sqlstr = "DELETE FROM reservasi WHERE id_pemesanan="+idString+""
-       return deleteData(sqlstr, route)
+       requests.delete(APIurl + "deleteReservasi/{}".format(id))
+
+       return redirect(url_for(f"{route}"))
        
 
 @app.route('/updateReservasi/<int:id>', methods=['GET','POST'])
@@ -255,9 +273,14 @@ def updateReservasi(id):
        db = getMysqlConnection()
        cur = db.cursor()
 
-       data = getUpdateData(f"SELECT * FROM reservasi WHERE id_pemesanan='{id}'", cur)
-       data_meja = getData(f"SELECT * FROM meja")
-       strid = str(id)
+       # data = getUpdateData(f"SELECT * FROM reservasi WHERE id_pemesanan='{id}'", cur)
+
+       r_Reservasi = requests.get(APIurl + "getReservasiById/{}".format(id))
+       data = r_Reservasi.json()['data_reservasi']
+       # data_meja = getData(f"SELECT * FROM meja")
+       r_Meja = requests.get(APIurl + "getMeja")
+       data_meja = r_Meja.json()['data_meja']
+       # strid = str(id)
        if request.method == 'POST':
              nama = request.form['nama']
              email = request.form['email']
@@ -272,11 +295,27 @@ def updateReservasi(id):
              separate_meja = meja.split(',')
              strmeja = separate_meja[0]
              keterangan_meja = separate_meja[1]
-             sqlstr = "UPDATE `reservasi` SET `nama` = '"+nama+"', `email` = '"+email+"', `telp` = '"+telepon+"', `jum_tamu` = '"+jml_tamu+"', `tanggal` = '"+tanggal+"', `jam` = '"+jam+"', `meja_no` = '"+strmeja+"', `ket_meja` = '"+keterangan_meja+"', `tambahan` = '"+layanan+"', `status` = '"+status+"' WHERE `reservasi`.`id_pemesanan` = '"+strid+"'"
-             cur.execute(sqlstr)
-             db.commit()
-             cur.close()
-             db.close()
+
+             dataUpdate = {
+                     "id_pemesanan": id,
+                     "nama": nama,
+                     "email": email,
+                     "telepon": telepon,
+                     "jumlah_tamu": jml_tamu,
+                     "tanggal": tanggal,
+                     "jam": jam,
+                     "tambahan": layanan,
+                     "status": status,
+                     "no_meja": strmeja,
+                     "ket_meja": keterangan_meja,
+             }
+
+             requests.post(APIurl + "updateReservasi/{}".format(id), json=dataUpdate)
+       #       sqlstr = "UPDATE `reservasi` SET `nama` = '"+nama+"', `email` = '"+email+"', `telp` = '"+telepon+"', `jum_tamu` = '"+jml_tamu+"', `tanggal` = '"+tanggal+"', `jam` = '"+jam+"', `meja_no` = '"+strmeja+"', `ket_meja` = '"+keterangan_meja+"', `tambahan` = '"+layanan+"', `status` = '"+status+"' WHERE `reservasi`.`id_pemesanan` = '"+strid+"'"
+       #       cur.execute(sqlstr)
+       #       db.commit()
+       #       cur.close()
+       #       db.close()
              return render_template('reservasi_update.html', data=data, data_meja=data_meja, disabled='disabled') 
        else:
              cur.close()
