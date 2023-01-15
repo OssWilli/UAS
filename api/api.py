@@ -2,11 +2,10 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from api.db import *
 
-
 app = FastAPI(title="Mie Ayam bang Willi - API Services", version="1.0.0")
 
 
-async def convert_timedelta(waktu):
+def convert_timedelta(waktu):
     detik = waktu.seconds
     jam = detik // 3600
     menit = (detik % 3600) // 60
@@ -54,19 +53,19 @@ class DaftarMenu(BaseModel):
 
 # INDEX API
 @app.get("/api/")
-async def index():
+def index():
     return {
         "description": "Mie Ayam Bang Willi's API, created and developed by Kelompok 4"
     }
 
-
 # API RESERVASI
 @app.get("/api/getReservasi")
-async def getReservasi():
+def getReservasi():
     content = {}
     content["data_reservasi"] = []
     data = getData("SELECT * FROM reservasi")
 
+    print(data)
     for i in data:
         jam = convert_timedelta(i[6])
 
@@ -91,7 +90,7 @@ async def getReservasi():
 
 
 @app.get("/api/getReservasiById/{id_pemesanan}")
-async def getReservasiById(id_pemesanan: int):
+def getReservasiById(id_pemesanan: int):
     content = {}
     content["data_reservasi"] = []
     data = getData(
@@ -120,9 +119,69 @@ async def getReservasiById(id_pemesanan: int):
 
     return content
 
+@app.get("/api/getReservasiByIdUser/{id_user}")
+def getReservasiById(id_user: int):
+    content = {}
+    content["data_reservasi"] = []
+    data = getData(
+        "SELECT * FROM reservasi WHERE id_user='{}'".format(id_user)
+    )
+
+    for i in data:
+        jam = convert_timedelta(i[6])
+
+        content["data_reservasi"].append(
+            {
+                "id_pemesanan": i[0],
+                "nama": i[1],
+                "email": i[2],
+                "telepon": i[3],
+                "jumlah_tamu": i[4],
+                "tanggal": i[5],
+                "jam": jam,
+                "tambahan": i[7],
+                "id_user": i[8],
+                "no_meja": i[9],
+                "ket_meja": i[10],
+                "status": i[11],
+            }
+        )
+
+    return content
+
+@app.get("/api/getReservasiByStatus/{status}")
+def getReservasiById(status: str):
+    content = {}
+    content["data_reservasi"] = []
+    data = getData(
+        "SELECT * FROM reservasi WHERE status='{}'".format(status)
+    )
+
+    for i in data:
+        jam = convert_timedelta(i[6])
+
+        content["data_reservasi"].append(
+            {
+                "id_pemesanan": i[0],
+                "nama": i[1],
+                "email": i[2],
+                "telepon": i[3],
+                "jumlah_tamu": i[4],
+                "tanggal": i[5],
+                "jam": jam,
+                "tambahan": i[7],
+                "id_user": i[8],
+                "no_meja": i[9],
+                "ket_meja": i[10],
+                "status": i[11],
+            }
+        )
+
+    return content
+
 
 @app.post("/api/createReservasi/")
-async def createReservasi(reservasi: Reservasi):
+def createReservasi(reservasi: Reservasi):
     insertQuery = """
     INSERT INTO reservasi(id_pemesanan, nama, email, telp, jum_tamu, tanggal, jam, tambahan, id_user, meja_no, ket_meja, status) 
     VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}')
@@ -148,7 +207,7 @@ async def createReservasi(reservasi: Reservasi):
 
 
 @app.post("/api/updateReservasi/{id}")
-async def updateReservasi(id: int, reservasi: Reservasi):
+def updateReservasi(id: int, reservasi: Reservasi):
     updateQuery = """
     UPDATE reservasi SET 
     id_pemesanan = '{0}', nama = '{1}', email = '{2}', telp = '{3}', jum_tamu = '{4}', 
@@ -185,7 +244,7 @@ def deleteReservasi(id):
 
 # API PROMO
 @app.get("/api/getPromo")
-async def getPromo():
+def getPromo():
     content = {}
     content["data_promo"] = []
     data = getData("SELECT * FROM promo")
@@ -206,7 +265,7 @@ async def getPromo():
 
 
 @app.get("/api/getPromoById/{id_promo}")
-async def getPromoById(id_promo: int):
+def getPromoById(id_promo: int):
     content = {}
     content["data_promo"] = []
     data = getData(
@@ -229,7 +288,7 @@ async def getPromoById(id_promo: int):
 
 
 @app.post("/api/createPromo/")
-async def createPromo(promo: Promo):
+def createPromo(promo: Promo):
     insertQuery = """
     INSERT INTO promo(id_promo, menu, harga_awal, harga_promo, tanggal) VALUES ('{0}','{1}','{2}','{3}','{4}')
     """
@@ -247,7 +306,7 @@ async def createPromo(promo: Promo):
 
 
 @app.post("/api/updatePromo/{id}")
-async def updatePromo(id: int, promo: Promo):
+def updatePromo(id: int, promo: Promo):
     updateQuery = """
     UPDATE promo SET 
     id_promo = '{0}', menu = '{1}', harga_awal = '{2}', harga_promo = '{3}', tanggal = '{4}' WHERE promo.id_promo = {5}
@@ -275,7 +334,7 @@ def deletePromo(id):
 
 # API MEJA
 @app.get("/api/getMeja")
-async def getMeja():
+def getMeja():
     content = {}
     content["data_meja"] = []
     data = getData("SELECT * FROM meja")
@@ -294,7 +353,7 @@ async def getMeja():
 
 
 @app.get("/api/getMejaById/{no_meja}")
-async def getMejaById(no_meja: int):
+def getMejaById(no_meja: int):
     content = {}
     content["data_meja"] = []
     data = getData(
@@ -315,7 +374,7 @@ async def getMejaById(no_meja: int):
 
 
 @app.post("/api/createMeja/")
-async def createMeja(meja: Meja):
+def createMeja(meja: Meja):
     insertQuery = """
     INSERT INTO meja(no_meja, keterangan, status_meja) VALUES ('{0}','{1}','{2}')
     """
@@ -331,7 +390,7 @@ async def createMeja(meja: Meja):
 
 
 @app.post("/api/updateMeja/{no_meja}")
-async def updateMeja(no_meja: int, meja: Meja):
+def updateMeja(no_meja: int, meja: Meja):
     updateQuery = """
     UPDATE meja SET 
     no_meja = '{0}', keterangan = '{1}', status_meja = '{2}' WHERE meja.no_meja = {3}
@@ -357,7 +416,7 @@ def deleteMeja(no_meja):
 
 # API DAFTAR MENU
 @app.get("/api/getDaftarMenu")
-async def getDaftarMenu():
+def getDaftarMenu():
     content = {}
     content["data_menu"] = []
     data = getData("SELECT * FROM daftar_menu")
@@ -377,7 +436,7 @@ async def getDaftarMenu():
 
 
 @app.get("/api/getDaftarMenuById/{id_menu}")
-async def getDaftarMenuById(id_menu: int):
+def getDaftarMenuById(id_menu: int):
     content = {}
     content["data_menu"] = []
     data = getData(
@@ -399,7 +458,7 @@ async def getDaftarMenuById(id_menu: int):
 
 
 @app.post("/api/createDaftarMenu/")
-async def createDaftarMenu(menu: DaftarMenu):
+def createDaftarMenu(menu: DaftarMenu):
     insertQuery = """
     INSERT INTO daftar_menu(id_menu, menu, harga, path) VALUES ('{0}','{1}','{2}','{3}')
     """
@@ -416,7 +475,7 @@ async def createDaftarMenu(menu: DaftarMenu):
 
 
 @app.post("/api/updateDaftarMenu/{id_menu}")
-async def updateMenu(id_menu: int, menu: DaftarMenu):
+def updateMenu(id_menu: int, menu: DaftarMenu):
     updateQuery = """
     UPDATE daftar_menu SET 
     id_menu= '{0}', menu = '{1}', harga = '{2}', path='{3}' WHERE daftar_menu.id_menu = '{4}'
@@ -442,7 +501,7 @@ def deleteMeja(id_menu):
 
 # API USER
 @app.get("/api/getUser")
-async def getUser():
+def getUser():
     content = {}
     content["data_user"] = []
     data = getData("SELECT * FROM user")
@@ -461,28 +520,26 @@ async def getUser():
 
 
 @app.get("/api/getUserById/{id_user}")
-async def getUserById(id_user: int):
+def getUserById(id_user: int):
     content = {}
     content["data_user"] = []
-    data = getData(
+    data = getOneData(
         "SELECT * FROM user WHERE id_user='{}'".format(id_user)
     )
-
-    for i in data:
-
-        content["data_user"].append(
-            {
-                "id_user": i[0],
-                "username": i[1],
-                "password": i[2]
-            }
-        )
+        
+    content["data_user"].append(
+        {
+                "id_user": data[0],
+                "username": data[1],
+                "password": data[2]
+        }
+    )
 
     return content
 
 
 @app.post("/api/createUser/")
-async def createUser(user: User):
+def createUser(user: User):
     insertQuery = """
     INSERT INTO user(id_user, username, password) VALUES ('{0}','{1}','{2}')
     """
@@ -498,7 +555,7 @@ async def createUser(user: User):
 
 
 @app.post("/api/updateUser/{id}")
-async def updateUser(id: int, user: User):
+def updateUser(id: int, user: User):
     updateQuery = """
     UPDATE user SET 
     id_user= '{0}', username = '{1}', password = '{2}' WHERE user.id_user = '{3}'
@@ -520,3 +577,4 @@ def deleteMeja(id):
     execute("DELETE FROM user WHERE id_user='{}'".format(id))
 
     return {"message": "success"}
+

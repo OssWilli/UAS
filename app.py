@@ -1,6 +1,6 @@
 from flask import Flask, flash, redirect, render_template, request, session, url_for, jsonify
 Flask
-import mysql.connector
+import mysql.connector, requests
 from flask_wtf import FlaskForm
 from wtforms import StringField
 from flask_wtf.file import FileField, FileAllowed
@@ -10,6 +10,7 @@ from filepath import BASE_PATH
 
 app = Flask(__name__)
 app.secret_key = "super secret key"
+APIurl = "http://127.0.0.1:8000/api/"
 
 def getMysqlConnection():
     return mysql.connector.connect(user='root', host='localhost', port='3306', password='', database='pa_web')
@@ -74,7 +75,9 @@ def indexAdmin():
 @app.route('/antrian/<int:id>', methods=['GET', 'POST'])
 def antrian(id):
        
-       data = getData(f"SELECT * FROM reservasi where id_user = '{id}' ")
+       r = requests.get(APIurl + "getReservasiByIdUser/{}".format(id))
+       data = r.json()['data_reservasi']
+
        username = session['username']
        return render_template('antrian.html', data=data, username=username)
 
@@ -85,12 +88,14 @@ def daftar_menu():
        if 'loggedin' in session:
               hidden_logout = tampil
 
-       data = getData("SELECT * FROM daftar_menu")
+       r = requests.get(APIurl + "getDaftarMenu")
+       data = r.json()['data_menu']
        return render_template('daftar_menu.html', data=data, hidden_logout=hidden_logout)
 
 @app.route('/daftarPesanan')
 def daftar_pesanan():
-       data = getData("SELECT * FROM reservasi WHERE status = 'Pending'")
+       r = requests.get(APIurl + "getReservasiByStatus/Pending")
+       data = r.json()['data_reservasi']
        return render_template('pesanan.html', data=data)
 
 @app.route('/deletePesanan/<int:id>', methods=['GET', 'POST'])
@@ -136,10 +141,16 @@ def dashboard():
        elif not 'loggedin' in session:
               return redirect(url_for('index'))
 
-       data_user = getData("SELECT * FROM user")
-       total_reservasi = getData("SELECT * FROM reservasi")
-       reservasi_pending = getData("SELECT * FROM `reservasi` WHERE `status`= 'Pending'")
-       reservasi_selesai = getData("SELECT * FROM `reservasi` WHERE `status`= 'Selesai'")
+       r_user = requests.get(APIurl + "getUser")
+       r_reservasi = requests.get(APIurl + "getReservasi")
+       r_reservasiPending = requests.get(APIurl + "getReservasiByStatus/Pending")
+       r_reservasiSelesai = requests.get(APIurl + "getReservasiByStatus/Selesai")
+
+       data_user = r_user.json()['data_user']
+       total_reservasi = r_reservasi.json()['data_reservasi']
+       reservasi_pending = r_reservasiPending.json()['data_reservasi']
+       reservasi_selesai = r_reservasiSelesai.json()['data_reservasi']
+
        return render_template('dashboard.html', data_user = data_user, total_reservasi = total_reservasi, reservasi_pending = reservasi_pending, reservasi_selesai = reservasi_selesai)
 
 # DATABASE USER
@@ -152,7 +163,8 @@ def dashboardUser():
        elif not 'loggedin' in session:
               return redirect(url_for('index'))
 
-       data = getData("SELECT * from user")
+       r = requests.get(APIurl + "getUser")
+       data = r.json()['data_user']
        return render_template('user.html', data=data)
 
 @app.route('/deleteUser/<int:id>')
@@ -165,9 +177,9 @@ def deleteUser(id):
               return redirect(url_for('index'))
 
        route = 'dashboardUser'
-       idString = str(id)
-       sqlstr = "DELETE FROM user WHERE id_user="+idString+""
-       return deleteData(sqlstr, route)
+       requests.delete(APIurl + "deleteUser/{}".format(id))
+
+       return redirect(url_for(f"{route}"))
 
 @app.route('/updateUser/<int:id>', methods=['GET','POST'])
 def updateUser(id):
@@ -177,27 +189,29 @@ def updateUser(id):
                      return redirect(url_for('index'))
        elif not 'loggedin' in session:
               return redirect(url_for('index'))
-
        
-       db = getMysqlConnection()
-       cur = db.cursor()
-       strid = str(id)
+       
+       r_getUser = requests.get(APIurl + "getUserById/{}".format(id))
 
-       data = getUpdateData(f"SELECT * FROM user WHERE id_user ='{strid}'", cur)
+       data = r_getUser.json()['data_user']
 
        if request.method == 'POST':
              username = request.form['username']
              password = request.form['password']
-             sqlstr = "UPDATE `user` SET `username` = '"+username+"', `password` = '"+password+"' WHERE `user`.`id_user` = '"+strid+"';"
-             cur.execute(sqlstr)
-             db.commit()
-             cur.close()
-             db.close()
-             return render_template('user_update.html', data=data, disabled='disabled')
+
+             url = APIurl + "updateUser/{}".format(id)
+            
+             dataPost = {
+              "id_user":id,
+              "username":username,
+              "password": password
+             }
+
+             requests.post(url=url, json=dataPost)
+
+             return render_template('user_update.html', data=data, disabled='disabled', url=url)
        
        else :
-             cur.close()
-             db.close()
              return render_template('user_update.html', data=data, disabled='') 
 
 # DATABASE RESERVASI
