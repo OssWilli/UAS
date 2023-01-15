@@ -57,7 +57,6 @@ def isAdmin():
 
 tampil=""
 hidden="hidden"
-
 # INDEX{{url_for('index')}}
 @app.route('/')
 def index():
