@@ -353,3 +353,90 @@ def deleteMeja(no_meja):
     execute("DELETE FROM meja WHERE no_meja='{}'".format(no_meja))
 
     return {"message": "success"}
+
+
+# API DAFTAR MENU
+@app.get("/api/getDaftarMenu")
+async def getDaftarMenu():
+    content = {}
+    content["data_menu"] = []
+    data = getData("SELECT * FROM daftar_menu")
+
+    for i in data:
+
+        content["data_menu"].append(
+            {
+                "id_menu": i[0],
+                "menu": i[1],
+                "harga": i[2],
+                "path": i[3]
+            }
+        )
+
+    return content
+
+
+@app.get("/api/getDaftarMenuById/{id_menu}")
+async def getDaftarMenuById(id_menu: int):
+    content = {}
+    content["data_menu"] = []
+    data = getData(
+        "SELECT * FROM daftar_menu WHERE id_menu='{}'".format(id_menu)
+    )
+
+    for i in data:
+
+        content["data_menu"].append(
+            {
+                "id_menu": i[0],
+                "menu": i[1],
+                "harga": i[2],
+                "path": i[3]
+            }
+        )
+
+    return content
+
+
+@app.post("/api/createDaftarMenu/")
+async def createDaftarMenu(menu: DaftarMenu):
+    insertQuery = """
+    INSERT INTO daftar_menu(id_menu, menu, harga, path) VALUES ('{0}','{1}','{2}','{3}')
+    """
+    execute(
+        insertQuery.format(
+            menu.id_menu,
+            menu.menu,
+            menu.harga,
+            menu.path
+        )
+    )
+
+    return {"message": "success"}
+
+
+@app.post("/api/updateDaftarMenu/{id_menu}")
+async def updateMenu(id_menu: int, menu: DaftarMenu):
+    updateQuery = """
+    UPDATE daftar_menu SET 
+    id_menu= '{0}', menu = '{1}', harga = '{2}', path='{3}' WHERE daftar_menu.id_menu = '{4}'
+    """
+    execute(
+        updateQuery.format(
+            menu.id_menu,
+            menu.menu,
+            menu.harga,
+            menu.path,
+            id_menu
+        )
+    )
+
+    return {"message": "success"}
+
+
+@app.delete("/api/deleteDaftarMenu/{id_menu}")
+def deleteMeja(id_menu):
+    execute("DELETE FROM daftar_menu WHERE id_menu='{}'".format(id_menu))
+
+    return {"message": "success"}
+
