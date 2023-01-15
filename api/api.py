@@ -440,3 +440,83 @@ def deleteMeja(id_menu):
 
     return {"message": "success"}
 
+# API USER
+@app.get("/api/getUser")
+async def getUser():
+    content = {}
+    content["data_user"] = []
+    data = getData("SELECT * FROM user")
+
+    for i in data:
+
+        content["data_user"].append(
+            {
+                "id_user": i[0],
+                "username": i[1],
+                "password": i[2]
+            }
+        )
+
+    return content
+
+
+@app.get("/api/getUserById/{id_user}")
+async def getUserById(id_user: int):
+    content = {}
+    content["data_user"] = []
+    data = getData(
+        "SELECT * FROM user WHERE id_user='{}'".format(id_user)
+    )
+
+    for i in data:
+
+        content["data_user"].append(
+            {
+                "id_user": i[0],
+                "username": i[1],
+                "password": i[2]
+            }
+        )
+
+    return content
+
+
+@app.post("/api/createUser/")
+async def createUser(user: User):
+    insertQuery = """
+    INSERT INTO user(id_user, username, password) VALUES ('{0}','{1}','{2}')
+    """
+    execute(
+        insertQuery.format(
+            user.id_user,
+            user.username,
+            user.password
+        )
+    )
+
+    return {"message": "success"}
+
+
+@app.post("/api/updateUser/{id}")
+async def updateUser(id: int, user: User):
+    updateQuery = """
+    UPDATE user SET 
+    id_user= '{0}', username = '{1}', password = '{2}' WHERE user.id_user = '{3}'
+    """
+    execute(
+        updateQuery.format(
+            user.id_user,
+            user.username,
+            user.password,
+            id
+        )
+    )
+
+    return {"message": "success"}
+
+
+@app.delete("/api/deleteUser/{id}")
+def deleteMeja(id):
+    execute("DELETE FROM user WHERE id_user='{}'".format(id))
+
+    return {"message": "success"}
