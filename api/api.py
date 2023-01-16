@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 from api.db import *
-import uvicorn
 
 app = FastAPI(title="Mie Ayam bang Willi - API Services", version="1.0.0")
 
@@ -30,7 +29,6 @@ class Reservasi(BaseModel):
     status: str
 
 class Promo(BaseModel):
-    id_promo: int
     menu: str
     harga_awal: int
     harga_promo: int
@@ -51,6 +49,13 @@ class DaftarMenu(BaseModel):
     menu: str
     harga: int
     path: str
+
+class Update(BaseModel):
+    tabel: str
+    fieldStatus: str
+    status: str
+    fieldKondisi: str
+    kondisi: str
 
 # INDEX API
 @app.get("/api/")
@@ -94,29 +99,28 @@ def getReservasi():
 def getReservasiById(id_pemesanan: int):
     content = {}
     content["data_reservasi"] = []
-    data = getData(
+    data = getOneData(
         "SELECT * FROM reservasi WHERE id_pemesanan='{}'".format(id_pemesanan)
     )
 
-    for i in data:
-        jam = convert_timedelta(i[6])
+    jam = convert_timedelta(data[6])
 
-        content["data_reservasi"].append(
-            {
-                "id_pemesanan": i[0],
-                "nama": i[1],
-                "email": i[2],
-                "telepon": i[3],
-                "jumlah_tamu": i[4],
-                "tanggal": i[5],
-                "jam": jam,
-                "tambahan": i[7],
-                "id_user": i[8],
-                "no_meja": i[9],
-                "ket_meja": i[10],
-                "status": i[11],
-            }
-        )
+    content["data_reservasi"].append(
+        {
+            "nama": data[1],
+            "id_pemesanan": data[0],
+            "email": data[2],
+            "telepon": data[3],
+            "jumlah_tamu": data[4],
+            "tanggal": data[5],
+            "jam": jam,
+            "tambahan": data[7],
+            "id_user": data[8],
+            "no_meja": data[9],
+            "ket_meja": data[10],
+            "status": data[11],
+        }
+    )
 
     return content
 
@@ -145,6 +149,53 @@ def getReservasiById(id_user: int):
                 "no_meja": i[9],
                 "ket_meja": i[10],
                 "status": i[11],
+            }
+        )
+
+    return content
+
+@app.get("/api/getUserByIdReservasi/{id_pemesanan}")
+def getUserByIdReservasi(id_pemesanan: int):
+    content = {}
+    content["data_reservasi"] = []
+    data = getOneData(
+        "SELECT id_user FROM reservasi WHERE id_pemesanan='{}'".format(id_pemesanan)
+    )
+
+
+    content["data_reservasi"].append(
+        {
+            "id_user": data[0],
+        }
+    )
+
+    return content
+
+@app.get("/api/getReservasiByStatus/{status}")
+def getReservasiById(status: str):
+    content = {}
+    content["data_reservasi"] = []
+    data = getData(
+        "SELECT * FROM reservasi WHERE status='{}'".format(status)
+    )
+
+    for i in data:
+        jam = convert_timedelta(i[6])
+
+        content["data_reservasi"].append(
+            {
+                "id_pemesanan": i[0],
+                "nama": i[1],
+                "email": i[2],
+                "telepon": i[3],
+                "jumlah_tamu": i[4],
+                "tanggal": i[5],
+                "jam": jam,
+                "tambahan": i[7],
+                "id_user": i[8],
+                "no_meja": i[9],
+                "ket_meja": i[10],
+                "status": i[11]
             }
         )
 
@@ -234,14 +285,11 @@ def getPromo():
 
     return content
 
-
-@app.get("/api/getPromoById/{id_promo}")
-def getPromoById(id_promo: int):
+@app.get("/api/getCurrentPromo")
+def getCurrentPromo():
     content = {}
     content["data_promo"] = []
-    data = getData(
-        "SELECT * FROM promo WHERE id_promo='{}'".format(id_promo)
-    )
+    data = getData("SELECT * FROM promo WHERE tanggal >= CURDATE()")
 
     for i in data:
 
@@ -258,33 +306,51 @@ def getPromoById(id_promo: int):
     return content
 
 
+@app.get("/api/getPromoById/{id_promo}")
+def getPromoById(id_promo: int):
+    content = {}
+    content["data_promo"] = []
+    data = getOneData(
+        "SELECT * FROM promo WHERE id_promo='{}'".format(id_promo)
+    )
+
+
+    content["data_promo"].append(
+        {
+            "id_promo": data[0],
+            "menu": data[1],
+            "harga_awal": data[2],
+            "harga_promo": data[3],
+            "tanggal": data[4]
+        }
+    )
+
+    return content
+
+
 @app.post("/api/createPromo/")
 def createPromo(promo: Promo):
     insertQuery = """
-    INSERT INTO promo(id_promo, menu, harga_awal, harga_promo, tanggal) VALUES ('{0}','{1}','{2}','{3}','{4}')
+    INSERT INTO promo(id_promo, menu, harga_awal, harga_promo, tanggal) VALUES ('','{0}','{1}','{2}','{3}')
     """
     execute(
         insertQuery.format(
-            promo.id_promo,
             promo.menu,
             promo.harga_awal,
             promo.harga_promo,
             promo.tanggal
         )
     )
-
     return {"message": "success"}
 
 
 @app.post("/api/updatePromo/{id}")
 def updatePromo(id: int, promo: Promo):
     updateQuery = """
-    UPDATE promo SET 
-    id_promo = '{0}', menu = '{1}', harga_awal = '{2}', harga_promo = '{3}', tanggal = '{4}' WHERE promo.id_promo = {5}
+    UPDATE promo SET menu = '{0}', harga_awal = '{1}', harga_promo = '{2}', tanggal = '{3}' WHERE promo.id_promo = {4}
     """
     execute(
         updateQuery.format(
-            promo.id_promo,
             promo.menu,
             promo.harga_awal,
             promo.harga_promo,
@@ -340,6 +406,20 @@ def getMejaById(no_meja: int):
                 "status_meja": i[2]
             }
         )
+
+    return content
+
+@app.get("/api/getMejaNoById/{id_pemesanan}")
+def getMejaNoById(id_pemesanan: int):
+    content = {}
+    content["data_meja"] = []
+    data = getOneData("SELECT meja_no FROM reservasi WHERE id_pemesanan='{}'".format(id_pemesanan))
+
+    content["data_meja"].append(
+        {
+            "no_meja": data[0]
+        }
+    )
 
     return content
 
@@ -427,6 +507,41 @@ def getDaftarMenuById(id_menu: int):
 
     return content
 
+@app.get("/api/getHargaMenuById/{id_menu}")
+def getHargaMenuById(id_menu: int):
+    content = {}
+    content["data_menu"] = []
+    data = getOneData(
+        "SELECT harga FROM daftar_menu WHERE id_menu='{}'".format(id_menu)
+    )
+
+
+    content["data_menu"].append(
+        {
+            "harga": data[0],
+        }
+    )
+
+    return content
+
+@app.get("/api/getMenuById/{id_menu}")
+def getMenuById(id_menu: int):
+    content = {}
+    content["data_menu"] = []
+    data = getOneData(
+        "SELECT menu FROM daftar_menu WHERE id_menu='{}'".format(id_menu)
+    )
+
+
+    content["data_menu"].append(
+        {
+            "menu": data[0]
+        }
+    )
+
+    return content
+
+
 
 @app.post("/api/createDaftarMenu/")
 def createDaftarMenu(menu: DaftarMenu):
@@ -494,19 +609,17 @@ def getUser():
 def getUserById(id_user: int):
     content = {}
     content["data_user"] = []
-    data = getData(
+    data = getOneData(
         "SELECT * FROM user WHERE id_user='{}'".format(id_user)
     )
-
-    for i in data:
-
-        content["data_user"].append(
-            {
-                "id_user": i[0],
-                "username": i[1],
-                "password": i[2]
-            }
-        )
+        
+    content["data_user"].append(
+        {
+                "id_user": data[0],
+                "username": data[1],
+                "password": data[2]
+        }
+    )
 
     return content
 
@@ -551,3 +664,21 @@ def deleteMeja(id):
 
     return {"message": "success"}
 
+
+# API UPDATE ANY
+@app.post("/api/updateAny/{id}")
+def updateAny(update: Update):
+    updateQuery = """
+        UPDATE {0} SET {1}= '{2}' WHERE {3} = '{4}'
+        """
+    execute(
+        updateQuery.format(
+            update.tabel,
+            update.fieldStatus,
+            update.status,
+            update.fieldKondisi,
+            update.kondisi,
+        )
+    )
+
+    return {"message": "success"}
