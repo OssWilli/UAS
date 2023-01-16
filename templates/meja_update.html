@@ -84,24 +84,36 @@
         <div class="card-body">
           <h5 class="card-title mt-4 mb-4" style="text-align: center;">Update Data Meja</h5>
           <hr>
-          <form action="/updateMeja/{{data[0]}}" method="post">
+          {% for dataUpdate in data %}
+          <form action="/updateMeja/{{dataUpdate['no_meja']}}" method="post">
+            
            <div class="form-row">
               <div class="form-group col-md-6">
               <label for="">Nomor Meja</label>
-              <input type="number" name="no_meja" class="form-control" value="{{data[0]}}" placeholder="Masukan Nomor Meja" min="1" max="10" {{disabled}} required/>
+              <input type="number" name="no_meja" class="form-control" value="{{dataUpdate['no_meja']}}" placeholder="Masukan Nomor Meja" min="1" max="10" {{disabled}} required/>
             </div>
             <div class="form-group col-md-6">
               <label for="">Keterangan</label>
               <select class="form-control" name="keterangan" id="" type="text" {{disabled}}>
-                <option selected value="{{data[1]}}">{{data[1]}}</option>
+                <option selected value="{{dataUpdate['keterangan']}}">{{dataUpdate['keterangan']}}</option>
                 <option value="Indoor">Indoor</option>
                 <option value="Outdoor">Outdoor</option>
+              </select>
+              <!-- <input type="number" name="" class="form-control" value="13.000" placeholder="Masukan Keterangan" min="0" required/> -->
+            </div>
+            <div class="form-group col-md-6">
+              <label for="">Status</label>
+              <select class="form-control" name="status" id="" type="text" {{disabled}}>
+                <option selected value="{{dataUpdate['status_meja']}}">{{dataUpdate['status_meja']}}</option>
+                <option value="Kosong">Kosong</option>
+                <option value="Terisi">Terisi</option>
               </select>
               <!-- <input type="number" name="" class="form-control" value="13.000" placeholder="Masukan Keterangan" min="0" required/> -->
             </div>
           </div>
           <div class="form-row">
           <button type="submit" name="submit" class="btn btn-primary mr-2">Submit</button>
+          {% endfor %}
         </form>
         <a href="{{url_for('dashboardMeja')}}" class="btn btn-secondary" role="button">Back</a>
         </div>

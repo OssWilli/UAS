@@ -39,6 +39,9 @@
               <a class="nav-link mr-4" href="{{url_for('promo')}}">PROMO</a>
             </li>
             <li class="nav-item">
+              <a class="nav-link mr-4" href="/antrian/{{id_session}}" {{hidden_logout}}>RIWAYAT</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link mr-4" href="{{url_for('logout')}}" {{hidden_logout}}>LOGOUT</a>
             </li>
           </ul>

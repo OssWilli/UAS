@@ -29,7 +29,6 @@ class Reservasi(BaseModel):
     status: str
 
 class Promo(BaseModel):
-    id_promo: int
     menu: str
     harga_awal: int
     harga_promo: int
@@ -311,21 +310,20 @@ def getCurrentPromo():
 def getPromoById(id_promo: int):
     content = {}
     content["data_promo"] = []
-    data = getData(
+    data = getOneData(
         "SELECT * FROM promo WHERE id_promo='{}'".format(id_promo)
     )
 
-    for i in data:
 
-        content["data_promo"].append(
-            {
-                "id_promo": i[0],
-                "menu": i[1],
-                "harga_awal": i[2],
-                "harga_promo": i[3],
-                "tanggal": i[4]
-            }
-        )
+    content["data_promo"].append(
+        {
+            "id_promo": data[0],
+            "menu": data[1],
+            "harga_awal": data[2],
+            "harga_promo": data[3],
+            "tanggal": data[4]
+        }
+    )
 
     return content
 
@@ -333,30 +331,26 @@ def getPromoById(id_promo: int):
 @app.post("/api/createPromo/")
 def createPromo(promo: Promo):
     insertQuery = """
-    INSERT INTO promo(id_promo, menu, harga_awal, harga_promo, tanggal) VALUES ('{0}','{1}','{2}','{3}','{4}')
+    INSERT INTO promo(id_promo, menu, harga_awal, harga_promo, tanggal) VALUES ('','{0}','{1}','{2}','{3}')
     """
     execute(
         insertQuery.format(
-            promo.id_promo,
             promo.menu,
             promo.harga_awal,
             promo.harga_promo,
             promo.tanggal
         )
     )
-
     return {"message": "success"}
 
 
 @app.post("/api/updatePromo/{id}")
 def updatePromo(id: int, promo: Promo):
     updateQuery = """
-    UPDATE promo SET 
-    id_promo = '{0}', menu = '{1}', harga_awal = '{2}', harga_promo = '{3}', tanggal = '{4}' WHERE promo.id_promo = {5}
+    UPDATE promo SET menu = '{0}', harga_awal = '{1}', harga_promo = '{2}', tanggal = '{3}' WHERE promo.id_promo = {4}
     """
     execute(
         updateQuery.format(
-            promo.id_promo,
             promo.menu,
             promo.harga_awal,
             promo.harga_promo,
@@ -512,6 +506,41 @@ def getDaftarMenuById(id_menu: int):
         )
 
     return content
+
+@app.get("/api/getHargaMenuById/{id_menu}")
+def getHargaMenuById(id_menu: int):
+    content = {}
+    content["data_menu"] = []
+    data = getOneData(
+        "SELECT harga FROM daftar_menu WHERE id_menu='{}'".format(id_menu)
+    )
+
+
+    content["data_menu"].append(
+        {
+            "harga": data[0],
+        }
+    )
+
+    return content
+
+@app.get("/api/getMenuById/{id_menu}")
+def getMenuById(id_menu: int):
+    content = {}
+    content["data_menu"] = []
+    data = getOneData(
+        "SELECT menu FROM daftar_menu WHERE id_menu='{}'".format(id_menu)
+    )
+
+
+    content["data_menu"].append(
+        {
+            "menu": data[0]
+        }
+    )
+
+    return content
+
 
 
 @app.post("/api/createDaftarMenu/")
