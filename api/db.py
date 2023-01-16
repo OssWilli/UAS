@@ -11,8 +11,8 @@ def getData(sqlstr):
     db = getMysqlConnection()
     cur = db.cursor()
     cur.execute(sqlstr)
-    output_data = cur.fetchall()
-    return output_data
+    data = cur.fetchall()
+    return data
 
 
 def execute(sqlstr):
@@ -26,5 +26,5 @@ def getOneData(sqlstr):
     db = getMysqlConnection()
     cur = db.cursor()
     cur.execute(sqlstr)
-    string_data = cur.fetchone()
-    return string_data
+    data = cur.fetchone()
+    return data

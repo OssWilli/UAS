@@ -39,6 +39,9 @@
               <a class="nav-link mr-4" href="{{url_for('promo')}}">PROMO</a>
             </li>
             <li class="nav-item">
+              <a class="nav-link mr-4" href="/antrian/{{id_session}}" {{hidden_logout}}>RIWAYAT</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link mr-4" href="{{url_for('logout')}}" {{hidden_logout}}>LOGOUT</a>
             </li>
           </ul>
@@ -54,10 +57,10 @@
           {% for item in data%}
           <div class="col-md-3">
             <div class="card border-dark">
-              <img src="{{item[3]}}" class="card-img-top" alt="gambar {{item[1]}}">
+              <img src="{{item['path']}}" class="card-img-top" alt="gambar {{item['menu']}}">
               <div class="card-body">
-                <h5 class="card-title font-weight-bold">{{item[1]}}</h5>
-               <label class="card-text harga">Rp. {{item[2]}}0</label><br>
+                <h5 class="card-title font-weight-bold">{{item['menu']}}</h5>
+               <label class="card-text harga">Rp. {{item['harga']}}0</label><br>
               </div>
             </div>
           </div>

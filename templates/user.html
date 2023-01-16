@@ -100,17 +100,17 @@
                 <tbody>
                   <!-- LOOP  -->
                   <tr>
-                    <td>{{item[0]}}</td>
-                    <td>{{item[1]}}</td>
+                    <td>{{item['id_user']}}</td>
+                    <td>{{item['username']}}</td>
                     <!-- <td>Email</td> -->
                     <!-- <td>No Telp</td> -->
-                    <td>{{item[2]}}</td>
+                    <td>{{item['password']}}</td>
                     <td>
-                      <a href="/updateUser/{{item[0]}}" class="btn btn-warning" role="button"><i class='bx bxs-edit'></i> Update</a>
+                      <a href="/updateUser/{{item['id_user']}}" class="btn btn-warning" role="button"><i class='bx bxs-edit'></i> Update</a>
                       <!-- Button trigger modal -->
                       <!-- <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#staticBackdrop"><i class='bx bxs-edit'></i> Update</button> -->
 
-                      <a href="/deleteUser/{{item[0]}}" onclick="return confirm('Are you sure you want to delete?');" class="btn btn-danger" role="button"><i class='bx bxs-trash-alt'></i> Delete</a>
+                      <a href="/deleteUser/{{item['id_user']}}" onclick="return confirm('Are you sure you want to delete?');" class="btn btn-danger" role="button"><i class='bx bxs-trash-alt'></i> Delete</a>
                     </td>
                     <!-- Modal -->
                     

@@ -76,10 +76,10 @@
           {% for item in data %}
           <tr>
             <th scope="row">{{loop.index}}</th>
-            <td>{{item[1]}}</td>
-            <td>Rp.{{item[2]}}</td>
-            <td>Rp.{{item[3]}}</td>
-            <td>{{item[4]}}</td>
+            <td>{{item['menu']}}</td>
+            <td>Rp.{{item['harga_awal']}}</td>
+            <td>Rp.{{item['harga_promo']}}</td>
+            <td>{{item['tanggal']}}</td>
           </tr>
           {%endfor%}
         </tbody>

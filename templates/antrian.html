@@ -43,7 +43,7 @@
               <a class="nav-link mr-4" href="{{url_for('promo')}}">PROMO</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mr-4" href="#">ANTRIAN</a>
+              <a class="nav-link mr-4" href="#">RIWAYAT</a>
             </li>
             <li class="nav-item">
               <a class="nav-link mr-4" href="{{url_for('logout')}}">LOGOUT</a>
@@ -75,9 +75,9 @@
           {% for item in data %}
           <tr>
             <th scope="row">{{loop.index}}</th>
-            <td>{{item[1]}}</td>
-            <td>{{item[5]}}</td>
-            <td>{{item[9]}}</td>
+            <td>{{item['nama']}}</td>
+            <td>{{item['tanggal']}}</td>
+            <td>{{item['no_meja']}}</td>
           </tr>
           {%endfor%}
         </tbody>

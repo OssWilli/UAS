@@ -82,17 +82,17 @@
           {% for item in data %}
           <tr>
             <th scope="row">{{loop.index}}</th>
-            <td>{{item[1]}}</td>
-            <td>{{item[2]}}</td>
-            <td>{{item[3]}}</td>
-            <td>{{item[5]}}</td>
-            <td>{{item[6]}}</td>
-            <td>{{item[4]}}</td>
-            <td>{{item[9]}}</td>
-            <td>{{item[7]}}</td>
-            <td>{{item[11]}}</td>
+            <td>{{item['nama']}}</td>
+            <td>{{item['email']}}</td>
+            <td>{{item['telepon']}}</td>
+            <td>{{item['tanggal']}}</td>
+            <td>{{item['jam']}}</td>
+            <td>{{item['jumlah_tamu']}}</td>
+            <td>{{item['no_meja']}}</td>
+            <td>{{item['tambahan']}}</td>
+            <td>{{item['status']}}</td>
             <td>
-              <a href="/deletePesanan/{{item[0]}}" class="badge badge-danger">Hapus Data</a>
+              <a href="/deletePesanan/{{item['id_pemesanan']}}" class="badge badge-danger">Hapus Data</a>
             </td>
           </tr>
           {%endfor%}
