@@ -13,7 +13,8 @@
 
   <link rel="stylesheet" href="../static/css/style.css">
   <title>Update Data Meja</title>
-  <link rel="icon" type="image/x-icon" href="../aset/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="../static/img/favicon.ico">
+  <!-- <link rel="icon" type="image/x-icon" href="../aset/favicon.ico"> -->
 </head>
 <body>
   <div class="sidebar">
@@ -88,7 +89,7 @@
           <form action="/updateMeja/{{dataUpdate['no_meja']}}" method="post">
             
            <div class="form-row">
-              <div class="form-group col-md-6">
+            <div class="form-group col-md-6">
               <label for="">Nomor Meja</label>
               <input type="number" name="no_meja" class="form-control" value="{{dataUpdate['no_meja']}}" placeholder="Masukan Nomor Meja" min="1" max="10" {{disabled}} required/>
             </div>
@@ -112,10 +113,10 @@
             </div>
           </div>
           <div class="form-row">
-          <button type="submit" name="submit" class="btn btn-primary mr-2">Submit</button>
-          {% endfor %}
-        </form>
-        <a href="{{url_for('dashboardMeja')}}" class="btn btn-secondary" role="button">Back</a>
+            <button type="submit" name="submit" class="btn btn-primary mr-2">Submit</button>
+            {% endfor %}
+          </form>
+          <a href="{{url_for('dashboardMeja')}}" class="btn btn-secondary" role="button">Back</a>
         </div>
       </div>
     </div>
