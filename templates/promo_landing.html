@@ -71,18 +71,18 @@
         <th scope="col">Harga Awal</th>
         <th scope="col">Harga Akhir</th>
         <th scope="col">Berlaku Sampai</th>
+        <th scope="col">Brosur</th>
       </tr>
     </thead>
     <tbody>
-      {% for item in data %}
       <tr>
-        <th scope="row">{{loop.index}}</th>
-        <td>{{item['menu']}}</td>
-        <td>Rp.{{item['harga_awal']}}</td>
-        <td>Rp.{{item['harga_promo']}}</td>
-        <td>{{item['tanggal']}}</td>
+        <th scope="row">1</th>
+        <td>Bakso</td>
+        <td>Rp.15000</td>
+        <td>Rp.10000</td>
+        <td>2023-01-12</td>
+        <td><img src="C:\Users\Gues\Documents\GitHub\UAS\static\img\bakso.jpeg"></td>
       </tr>
-      {%endfor%}
     </tbody>
   </table>
 </div>
