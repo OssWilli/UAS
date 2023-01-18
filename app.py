@@ -288,7 +288,7 @@ def dashboardReservasi():
         return redirect(url_for("index"))
 
     r = requests.get(APIurl + "getReservasi")
-    data = r.json()["data_reservasi"]
+    data = getData("SELECT * FROM reservasi")
 
     return render_template("reservasi.html", data=data)
 
@@ -669,7 +669,7 @@ def userReservasi():
     cur = db.cursor()
 
     data_meja = getData(f"SELECT * FROM meja WHERE status_meja = 'Kosong' ")
-
+    form = MyForm()
     if request.method == "POST":
         nama = request.form["nama"]
         email = request.form["email"]
@@ -680,12 +680,21 @@ def userReservasi():
         meja = request.form["meja"]
         layanan = request.form["layanan"]
         status = request.form["status"]
+        file = request.files["files"]
+
+        # Sanitize the file name
+        filename = secure_filename(file.filename)
+
+        # Save the file to the filesystem
+        file.save(BASE_PATH + filename)
+
+        filepath = path + filename
 
         separate_meja = meja.split(",")
         strmeja = separate_meja[0]
         keterangan_meja = separate_meja[1]
         id_user = session["id"]
-        sqlstr = f"INSERT INTO `reservasi` (`id_pemesanan`, `nama`, `email`, `telp`, `jum_tamu`, `tanggal`, `jam`, `tambahan`, `id_user`, `meja_no`, `ket_meja`, `status`) VALUES (NULL, '{nama}', '{email}', '{telepon}', '{jml_tamu}', '{tanggal}', '{jam}', '{layanan}', '{id_user}', '{strmeja}', '{keterangan_meja}', '{status}')"
+        sqlstr = f"INSERT INTO `reservasi` (`id_pemesanan`, `nama`, `email`, `telp`, `jum_tamu`, `tanggal`, `jam`, `tambahan`, `id_user`, `meja_no`, `ket_meja`, `status`, `identitas`) VALUES (NULL, '{nama}', '{email}', '{telepon}', '{jml_tamu}', '{tanggal}', '{jam}', '{layanan}', '{id_user}', '{strmeja}', '{keterangan_meja}', '{status}', '{filepath}')"
         cur.execute(sqlstr)
         db.commit()
 
@@ -700,6 +709,24 @@ def userReservasi():
         cur.close()
         db.close()
         return render_template("reservasi_user.html", data_meja=data_meja, disabled="")
+
+    #     form = MyForm()
+    # if request.method == "POST":
+    #     file = request.files["files"]
+    #     nama = request.form["nama_makanan"]
+    #     harga = request.form["harga"]
+
+    #     # Sanitize the file name
+    #     filename = secure_filename(file.filename)
+
+    #     # Save the file to the filesystem
+    #     file.save(BASE_PATH + filename)
+
+    #     filepath = path + filename
+
+    #     route = "dashboardMenu"
+    #     sqlstr = f"INSERT INTO `daftar_menu` (`id_menu`, `menu`, `harga`, `path`) VALUES (NULL, '{nama}', '{harga}', '{filepath}')"
+    #     return createData(sqlstr, route)
 
 
 # LOGIN

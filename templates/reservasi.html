@@ -98,22 +98,26 @@
                     <th>No Meja</th>
                     <th>Layanan Tambahan</th>
                     <th>Status</th>
+                    <th>Identitas</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   {% for item in data%}
                   <tr>
-                    <td>{{item['id_pemesanan']}}</td>
-                    <td>{{item['nama']}}</td>
-                    <td>{{item['email']}}</td>
-                    <td>{{item['telepon']}}</td>
-                    <td>{{item['tanggal']}}</td>
-                    <td>{{item['jam']}}</td>
-                    <td>{{item['jumlah_tamu']}}</td>
-                    <td>{{item['no_meja']}}</td>
-                    <td>{{item['tambahan']}}</td>
-                    <td>{{item['status']}}</td>
+                    <td>{{item[0]}}</td>
+                    <td>{{item[1]}}</td>
+                    <td>{{item[2]}}</td>
+                    <td>{{item[3]}}</td>
+                    <td>{{item[5]}}</td>
+                    <td>{{item[6]}}</td>
+                    <td>{{item[4]}}</td>
+                    <td>{{item[9]}}</td>
+                    <td>{{item[7]}}</td>
+                    <td>{{item[11]}}</td>
+                    <td><img src="{{item[12]}}" style="width: 200px; height: 150px;" alt="gambar menu"></td>
+                    <td>
+                    <td><img src="{{item['identitas']}}" style="width: 200px; height: 150px;" alt="NULL"></td>
                     <td>
                       <a href="/updateReservasi/{{item['id_pemesanan']}}" class="btn btn-warning" role="button"><i class='bx bxs-edit'></i> Update</a>
                       <a href="/deleteReservasi/{{item['id_pemesanan']}}" class="btn btn-danger" role="button"><i class='bx bxs-trash-alt'></i> Delete</a>
