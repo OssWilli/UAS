@@ -505,12 +505,13 @@ def createPromo():
               "menu": nama_menu,
               "harga_awal": harga_awal,
               "harga_promo": harga_promo,
-              "tanggal": tanggal
+              "tanggal": tanggal,
+              "sessionid":session['id']
               
         }
         requests.post(APIurl+"createPromo",json=dataPost)
         return redirect(url_for(f"{route}"))
-
+    
 
 @app.route("/deletePromo/<int:id>")
 def deletePromo(id):
