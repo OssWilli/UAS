@@ -29,6 +29,7 @@ class Reservasi(BaseModel):
     status: str
 
 class Promo(BaseModel):
+    usersession: int
     menu: str
     harga_awal: int
     harga_promo: int
@@ -333,15 +334,20 @@ def createPromo(promo: Promo):
     insertQuery = """
     INSERT INTO promo(id_promo, menu, harga_awal, harga_promo, tanggal) VALUES ('','{0}','{1}','{2}','{3}')
     """
-    execute(
-        insertQuery.format(
-            promo.menu,
-            promo.harga_awal,
-            promo.harga_promo,
-            promo.tanggal
+    if promo.usersession == 1:
+        execute(
+            insertQuery.format(
+                promo.menu,
+                promo.harga_awal,
+                promo.harga_promo,
+                promo.tanggal
+            )
         )
-    )
-    return {"message": "success"}
+        return {"message": "success"}
+    else:
+        return{"message":failed}
+
+
 
 
 @app.post("/api/updatePromo/{id}")
@@ -480,6 +486,23 @@ def getDaftarMenu():
                 "menu": i[1],
                 "harga": i[2],
                 "path": i[3]
+            }
+        )
+
+    return content
+
+
+@app.get("/api/getIdMenu")
+def getIdMenu():
+    content = {}
+    content["data_menu"] = []
+    data = getData("SELECT id_menu FROM daftar_menu")
+
+    for i in data:
+
+        content["data_menu"].append(
+            {
+                "id_menu": i[0]
             }
         )
 
