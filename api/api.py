@@ -345,7 +345,7 @@ def createPromo(promo: Promo):
         )
         return {"message": "success"}
     else:
-        return{"message":failed}
+        return{"message":"failed"}
 
 
 
