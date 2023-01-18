@@ -114,12 +114,14 @@ def antrian(id):
 @app.route("/daftarMenu")
 def daftar_menu():
     hidden_logout = hidden
+    id_session = 00
     if "loggedin" in session:
         hidden_logout = tampil
+        id_session=session["id"]
 
     r = requests.get(APIurl + "getDaftarMenu")
     data = r.json()["data_menu"]
-    return render_template("daftar_menu.html", data=data, hidden_logout=hidden_logout)
+    return render_template("daftar_menu.html", data=data, hidden_logout=hidden_logout, id = id_session)
 
 
 @app.route("/daftarPesanan")
@@ -173,7 +175,7 @@ def promo():
         hidden_logout = tampil
         hidden_jika_admin = tampil
 
-    r = requests.get(APIurl + "getCurrentPromo")
+    r = requests.get(APIurl + "getPromo")
     data = r.json()["data_promo"]
 
     return render_template(
@@ -624,7 +626,6 @@ def deleteMenu(id):
 
 @app.route("/updateMenu/<int:id>", methods=["GET", "POST"])
 def updateMenu(id):
-
     if "loggedin" in session:
         if session["id"] != 1:
             return redirect(url_for("index"))
